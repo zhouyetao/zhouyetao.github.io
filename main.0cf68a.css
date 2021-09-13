@@ -650,7 +650,8 @@ margin-bottom:80px}
 position:absolute;
 right:0;
 min-height:100%;
-/* background:#eaeaea; */
+/* background:#070606; */
+background: linear-gradient(rgba(255, 255, 255, .5), rgba(0, 0, 0, 0.5)),url('/img/background/hack.jpg') no-repeat 20% 20%/ cover;
 left:300px;
 width:auto}
 .mid-col.show
@@ -663,7 +664,7 @@ background:hsla(0,0%,100%,.3)}
 .left-col
 {
 /* background:#fff; */
-background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),url('/img/background/hack.jpg') no-repeat 0% 20%/ cover;
+background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)),url('/img/background/hack.jpg') no-repeat 0% 20%/ cover;
 width:300px;
 position:fixed;
 opacity:1;
@@ -688,7 +689,7 @@ position:relative;
 border-bottom:1px solid color-border}
 .left-col #header a
 {
-color:#696969}
+color:#f8eaea}
 .left-col #header a:hover
 {
 color:#b0a0aa}
@@ -697,7 +698,7 @@ color:#b0a0aa}
 text-align:center;
 color:#999;
 color:#000000;
-font-size:14px;
+font-size:18px;
 line-height:25px;
 overflow:hidden;
 text-overflow:ellipsis;
