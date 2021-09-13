@@ -1052,7 +1052,7 @@ margin-top:6px}
 float:left}
 .archive-article-date
 {
-color:#999;
+color:rgb(255, 255, 255);
 margin-right:7.6923%;
 float:right}
 .archive-article-date .icon
@@ -1709,7 +1709,7 @@ text-align:center;
 z-index:1}
 .article-meta time
 {
-color:#aaa}
+color:rgb(255, 255, 255)}
 .article-meta time .icon-clock
 {
 margin-right:8px;
