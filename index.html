@@ -153,6 +153,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-fmt-x64——格式化字符串不在栈上" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/">fmt_x64——格式化字符串不在栈上</a>
+    </h1>
+  
+
+        
+        <a href="/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/" class="archive-article-date">
+  	<time datetime="2021-09-16T05:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于32位的elf来说，pwntools有现成的函数fmt_str可以使用，但是对于64位的elf，就需要自己手动构建。</p>
+        
+          <a class="article-more-a" href="/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">fmt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/pwn-note//" class="article-tag-list-link color4">pwn-note</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/16/fmt-x64%E2%80%94%E2%80%94%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ret2-libc-csu-init" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -173,7 +264,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Ret2-Libc-csu-init"><a href="#Ret2-Libc-csu-init" class="headerlink" title="Ret2__Libc_csu_init"></a>Ret2__Libc_csu_init</h4><p>在64位程序中，函数的前6个参数通过寄存器进行存储；但是很难找到正好符合我们需要的寄存器的gadgets，这个时候可以利用__libc_csu_init——这个函数是对libc进行初始化的函数，所以一般每个64位的程序中，都会存在。</p>
+        <p>在64位程序中，函数的前6个参数通过寄存器进行存储；但是很难找到正好符合我们需要的寄存器的gadgets，这个时候可以利用__libc_csu_init——这个函数是对libc进行初始化的函数，所以一般每个64位的程序中，都会存在。</p>
         
           <a class="article-more-a" href="/2021/09/13/ret2-libc-csu-init/#more">more >></a>
         
@@ -359,6 +450,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">pwn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">fmt</a>
               </li>
              
               <li class="article-tag-list-item">
