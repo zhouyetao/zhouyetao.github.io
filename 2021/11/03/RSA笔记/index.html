@@ -16,7 +16,7 @@
 <meta property="og:description" content="花了将近半天的时间学完了离散数学的第十一章，在这里做一下常见的rsa的分析。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-11-03T07:09:01.000Z">
-<meta property="article:modified_time" content="2021-11-03T17:31:17.264Z">
+<meta property="article:modified_time" content="2021-11-03T17:32:34.822Z">
 <meta property="article:author" content="ZhouYetao">
 <meta name="twitter:card" content="summary">
   
@@ -198,7 +198,7 @@
 
 <h5 id="正确性证明"><a href="#正确性证明" class="headerlink" title="正确性证明"></a>正确性证明</h5><p>针对以上加密解密的是否正确，对齐进行证明：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">已知：</span><br><span class="line">d * e ≡ 1 (mod phi(n));</span><br><span class="line">c ≡ (m ** e) mod n;</span><br><span class="line">证明m ≡ (c ** d) mod n</span><br><span class="line">证明：</span><br><span class="line">要证m ≡ (c ** d) mod n</span><br><span class="line">即证(c ** d) ≡ m mod n</span><br><span class="line">又∵c ≡ (m ** e) mod n</span><br><span class="line">即证(m ** ed) ≡ m mod n</span><br><span class="line">又∵d * e ≡ 1 (mod phi(n))</span><br><span class="line">∴d * e = k * phi(n) + 1</span><br><span class="line">即证(m ** (k * phi(n) + 1)) ≡ m mod n</span><br><span class="line">分类进行讨论</span><br><span class="line">当gcd(m,n) = 1时：</span><br><span class="line">(m ** (k * phi(n) + 1))</span><br><span class="line">≡ m * (((m ** phi) mod n) ** k)</span><br><span class="line">又∵gcd(m,n) = 1</span><br><span class="line">∴(m ** phi) mod n ≡ 1 mod n</span><br><span class="line">∴上式 ≡ m mod n</span><br><span class="line"></span><br><span class="line">当gcd(m,n) ≠ 1时：</span><br><span class="line">∵m = p * q</span><br><span class="line">又∵p、q为素数且gcd(m,n) ≠ 1</span><br><span class="line">∴m必为p或q的倍数</span><br><span class="line">令m = x * p (x &lt; q)</span><br><span class="line">∵p为素数</span><br><span class="line">∴m ** phi(q) ≡ 1 mod q</span><br><span class="line">∴(m ** (k * phi(n) + 1))</span><br><span class="line">≡ m * ((m ** (phi(n))) ** k)</span><br><span class="line">≡ m * ((m ** ((p - 1) * phi(q))) ** k)</span><br><span class="line">≡ m mod n</span><br></pre></td></tr></table></figure>
-<p>证明完了rsa的正确性，接下来介绍以下常见的rsa攻击，已经获取m的exp模板</p>
+<p>证明完了rsa的正确性，接下来介绍以下常见的rsa攻击，以及获取m的exp模板</p>
 <h4 id="rsa攻击"><a href="#rsa攻击" class="headerlink" title="rsa攻击"></a>rsa攻击</h4><h5 id="已知p、q、n、e，求m"><a href="#已知p、q、n、e，求m" class="headerlink" title="已知p、q、n、e，求m"></a>已知p、q、n、e，求m</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">import libnum</span><br><span class="line">from libnum.primes import generate_prime</span><br><span class="line">from libnum.strings import n2s, s2n</span><br><span class="line">p = generate_prime(1024)</span><br><span class="line">q = generate_prime(1024)</span><br><span class="line">n = p * q</span><br><span class="line">e = 65537</span><br><span class="line">flag = &quot;flag&#123;aaa&#125;&quot;</span><br><span class="line">c = pow(s2n(flag),e,n)</span><br><span class="line">phi = (p - 1) * (q - 1)</span><br><span class="line">d = gmpy2.invert(e, phi)</span><br><span class="line">flag = n2s(pow(c,d,n))</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
 
 <h5 id="n较小可直接进行分解"><a href="#n较小可直接进行分解" class="headerlink" title="n较小可直接进行分解"></a>n较小可直接进行分解</h5><p>使用yafu进行整数分解</p>
@@ -243,44 +243,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Util.number import *</span><br><span class="line">from secret import flag</span><br><span class="line">p = getPrime(1024)</span><br><span class="line">q = getPrime(1024)</span><br><span class="line">assert len(flag) == 40</span><br><span class="line">n = p*q</span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line">e = 3</span><br><span class="line">c = pow(m+p, e, n)</span><br><span class="line"></span><br><span class="line">print(&quot;n =&quot;, n)</span><br><span class="line">print(&quot;p =&quot;, hex((p&gt;&gt;400)&lt;&lt;400))</span><br><span class="line">print(&quot;c =&quot;, c)</span><br><span class="line">print(&quot;p =&quot;, hex(p))</span><br><span class="line">&#x27;&#x27;&#x27;</span><br><span class="line">n = 18938788289620067144478923765173436262311068999676893390445049546312684365514536608080428689027531397349166856558418856679224420742579451021100821630696237144618222613228409489544352235694744341844439195591698481080058837746671025995110356482183267906661682973204274675740778215117419822965350657167064853267563622675079821715407856685970086113198725477878846760181691806710341138916872837282000986249555478412089316527688906861692832058293518550563719385564121119900966641174901328361905085250758567429953313748419974818256075740638622748678830559125695986550219947994604631541361313204232163980034059284851019250771</span><br><span class="line">pbar = 0xa892eb59b175bcf896be2176598f278437fe10ef032279f06e1092143acfb3c16b31811cca5286699595c2720c652ee64f8adc92c8b16a5601dd981d6f839ce9c0513db30de88c2ec6cae1a726ac0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span><br><span class="line">c = 15433214846771804225704093824935372144929516863829752998270111032551363583267576397009018518790803908369965458162930857063271509296349091229352855725285388975497906340053281554202527432848881160125418406408621879995822551367228501163128699032015069585502994319524445505522625561831240862136447585120010288772692097621553249775117843166714346924868089146429002417223863834435968726551668931140147337199939823985783939085842479154589529244209712172799274024573845157268545992888944742377166586536479490962335287124809557709167220756920767331929168230518135523463578566851417486746667008938122693256033127001185017237773</span><br><span class="line">&#x27;&#x27;&#x27;</span><br></pre></td></tr></table></figure>
 <p>我们发现这边p的后400位都被置为了0，那也有办法对p进行泄露，脚本同样需要用sage跑：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">n = 18938788289620067144478923765173436262311068999676893390445049546312684365514536608080428689027531397349166856558418856679224420742579451021100821630696237144618222613228409489544352235694744341844439195591698481080058837746671025995110356482183267906661682973204274675740778215117419822965350657167064853267563622675079821715407856685970086113198725477878846760181691806710341138916872837282000986249555478412089316527688906861692832058293518550563719385564121119900966641174901328361905085250758567429953313748419974818256075740638622748678830559125695986550219947994604631541361313204232163980034059284851019250771</span><br><span class="line">p_fake = 0xa892eb59b175bcf896be2176598f278437fe10ef032279f06e1092143acfb3c16b31811cca5286699595c2720c652ee64f8adc92c8b16a5601dd981d6f839ce9c0513db30de88c2ec6cae1a726ac0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</span><br><span class="line"></span><br><span class="line">def leak_p(p_fake):</span><br><span class="line">    pbits = p_fake.nbits()</span><br><span class="line">    kbits = 400  #p lost</span><br><span class="line">    pbar = p_fake &amp; (2^pbits-2^kbits)</span><br><span class="line">    PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">    f = x + pbar</span><br><span class="line">    </span><br><span class="line">    x0 = f.small_roots(X=2^kbits, beta=0.4)[0]</span><br><span class="line">    p= x0 + pbar</span><br><span class="line">    print (p)</span><br><span class="line">leak_p(p_fake)</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
 
       
@@ -592,11 +554,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">fmt</a>
+                <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">stackoverflow</a>
+                <a href="javascript:void(0)" class="js-tag color4">fmt</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,11 +570,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">data</a>
+                <a href="javascript:void(0)" class="js-tag color4">reverse_shell</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">reverse_shell</a>
+                <a href="javascript:void(0)" class="js-tag color5">data</a>
               </li>
             
             <div class="clearfix"></div>
